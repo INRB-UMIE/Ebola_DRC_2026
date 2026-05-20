@@ -1,11 +1,11 @@
 # QA report: epi
 
-_Checked: 2026-05-20T15:22:16+00:00_
+_Checked: 2026-05-20T21:48:45+00:00_
 
-**Status counts:** {'pass': 1, 'warn': 1}
+**Status counts:** {'pass': 1, 'fail': 1}
 
 ## `metadata.yaml` (metadata) — **pass**
 
-## `processed/` (structure) — **warn**
+## `2026-05-18.csv` (structure) — **fail**
 - reasons:
-  - no processed/ directory
+  - filename does not match contract <dataset>__<metric>__<resolution>.(csv|matrix.csv)

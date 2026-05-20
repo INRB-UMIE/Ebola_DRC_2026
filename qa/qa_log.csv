@@ -1,14 +1,18 @@
 dataset,file,type,status,n_rows,n_zones_covered,reasons,checked_at
-ACLED_conflict,metadata.yaml,metadata,pass,,,,2026-05-20T15:22:16+00:00
-ACLED_conflict,processed/,structure,warn,,,no processed/ directory,2026-05-20T15:22:16+00:00
-IDP,metadata.yaml,metadata,pass,,,,2026-05-20T15:22:16+00:00
-IDP,idp__individuals__monthly.matrix.csv,matrix,pass,4004,44,,2026-05-20T15:22:16+00:00
-IDP,idp__individuals__static.matrix.csv,matrix,pass,44,44,,2026-05-20T15:22:16+00:00
-IDP,idp__individuals__weekly.matrix.csv,matrix,pass,12584,44,,2026-05-20T15:22:16+00:00
-cross-border-movements,metadata.yaml,metadata,pass,,,,2026-05-20T15:22:16+00:00
-cross-border-movements,cross_border__poe_passengers__static.csv,vector,pass,7,7,,2026-05-20T15:22:16+00:00
-epi,metadata.yaml,metadata,pass,,,,2026-05-20T15:22:16+00:00
-epi,processed/,structure,warn,,,no processed/ directory,2026-05-20T15:22:16+00:00
-flowminder,metadata.yaml,metadata,pass,,,,2026-05-20T15:22:16+00:00
-flowminder,flowminder__inflow__static.matrix.csv,matrix,pass,101,101,,2026-05-20T15:22:16+00:00
-flowminder,flowminder__outflow__static.matrix.csv,matrix,pass,101,101,,2026-05-20T15:22:16+00:00
+ACLED_conflict,metadata.yaml,metadata,pass,,,,2026-05-20T21:48:45+00:00
+ACLED_conflict,processed/,structure,warn,,,no processed/ directory,2026-05-20T21:48:45+00:00
+IDP,metadata.yaml,metadata,pass,,,,2026-05-20T21:48:45+00:00
+IDP,idp__individuals__monthly.matrix.csv,matrix,pass,4004,44,,2026-05-20T21:48:45+00:00
+IDP,idp__individuals__static.matrix.csv,matrix,pass,44,44,,2026-05-20T21:48:45+00:00
+IDP,idp__individuals__weekly.matrix.csv,matrix,pass,12584,44,,2026-05-20T21:48:45+00:00
+cross-border-movements,metadata.yaml,metadata,pass,,,,2026-05-20T21:48:45+00:00
+cross-border-movements,cross_border__poe_passengers__static.csv,vector,pass,7,7,,2026-05-20T21:48:45+00:00
+epi,metadata.yaml,metadata,pass,,,,2026-05-20T21:48:45+00:00
+epi,2026-05-18.csv,structure,fail,,,filename does not match contract <dataset>__<metric>__<resolution>.(csv|matrix.csv),2026-05-20T21:48:45+00:00
+flowminder,metadata.yaml,metadata,pass,,,,2026-05-20T21:48:45+00:00
+flowminder,flowminder__inflow__static.matrix.csv,matrix,pass,101,101,,2026-05-20T21:48:45+00:00
+flowminder,flowminder__outflow__static.matrix.csv,matrix,pass,101,101,,2026-05-20T21:48:45+00:00
+healthzone_traveldisttime,metadata.yaml,metadata,fail,,,metadata.yaml not present,2026-05-20T21:48:45+00:00
+healthzone_traveldisttime,processed/,structure,warn,,,no processed/ directory,2026-05-20T21:48:45+00:00
+refugee_sites,metadata.yaml,metadata,pass,,,,2026-05-20T21:48:45+00:00
+refugee_sites,refugee_sites__sites__static.csv,vector,pass,23,23,,2026-05-20T21:48:45+00:00

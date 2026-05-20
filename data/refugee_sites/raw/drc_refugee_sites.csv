@@ -1,0 +1,89 @@
+osm_type,osm_id,osm_url,name,alt_name,category,operator,operator_type,capacity,population,start_date,end_date,ref_unhcr,lat,lon,geometry_type
+node,1158948215,https://www.openstreetmap.org/node/1158948215,Kashuga IDP Camp,,refugee_site,,,,,,,,-1.055243,28.990276,Point
+node,2081465086,https://www.openstreetmap.org/node/2081465086,"Camp de Ruthsuru, site 5 (personnes déplacées)",,refugee_site,,,,,,,,-1.180800,29.446486,Point
+node,5220061243,https://www.openstreetmap.org/node/5220061243,Kiaghala IDP Camp,,refugee_site,,,,,,,,-0.934015,29.066399,Point
+node,5223365300,https://www.openstreetmap.org/node/5223365300,Kalengera IDP Camp,,refugee_site,,,,,,,,-1.188556,28.932849,Point
+node,7049368268,https://www.openstreetmap.org/node/7049368268,Kasoko IDP Camp,,refugee_site,,,,,,,,-1.088096,29.123329,Point
+node,7049406310,https://www.openstreetmap.org/node/7049406310,Ibuga IDP Camp,,refugee_site,,,,,,,,-1.048481,28.987185,Point
+node,7049420111,https://www.openstreetmap.org/node/7049420111,Kalembe Kalonge IDP Camp,,refugee_site,,,,,,,,-1.028020,28.942130,Point
+node,7053162178,https://www.openstreetmap.org/node/7053162178,Mungote IDP Camp,,refugee_site,,,,,,,,-1.237491,29.055485,Point
+node,7053164310,https://www.openstreetmap.org/node/7053164310,Bambu IDP Camp,,refugee_site,,,,,,,,-1.077605,29.229866,Point
+node,7053176440,https://www.openstreetmap.org/node/7053176440,Nyanzale Marche IDP Camp,,refugee_site,,,,,,,,-1.021653,29.114950,Point
+node,7053270178,https://www.openstreetmap.org/node/7053270178,Mweso IDP Camp,,refugee_site,,,,,,,,-1.128912,29.039266,Point
+node,7053274609,https://www.openstreetmap.org/node/7053274609,Kihondo IDP Camp,,refugee_site,,,,,,,,-1.054301,29.117686,Point
+node,7565615147,https://www.openstreetmap.org/node/7565615147,Kasama IDP camp,,refugee_site,,,,,,,,-6.032731,29.200836,Point
+way,196571289,https://www.openstreetmap.org/way/196571289,,,refugee_generic,,,,,,,,-1.364503,28.790119,Polygon
+way,196571290,https://www.openstreetmap.org/way/196571290,,,refugee_generic,,,,,,,,-1.363655,28.789121,Polygon
+way,196571291,https://www.openstreetmap.org/way/196571291,,,refugee_site,,,,,,,,-1.336967,28.781614,Polygon
+way,196600934,https://www.openstreetmap.org/way/196600934,,,refugee_site,,,,,,,,-1.331587,28.771891,Polygon
+way,196608660,https://www.openstreetmap.org/way/196608660,,,refugee_generic,,,,,,,,-1.364983,28.772951,Polygon
+way,196608661,https://www.openstreetmap.org/way/196608661,,,refugee_generic,,,,,,,,-1.364100,28.776816,Polygon
+way,196608665,https://www.openstreetmap.org/way/196608665,,,refugee_generic,,,,,,,,-1.369869,28.762927,Polygon
+way,196609466,https://www.openstreetmap.org/way/196609466,,,refugee_generic,,,,,,,,-1.367848,28.783861,Polygon
+way,196609467,https://www.openstreetmap.org/way/196609467,,,refugee_generic,,,,,,,,-1.362951,28.793741,Polygon
+way,196609472,https://www.openstreetmap.org/way/196609472,,,refugee_generic,,,,,,,,-1.358691,28.790253,Polygon
+way,196614911,https://www.openstreetmap.org/way/196614911,,,refugee_generic,,,,,,,,-1.321687,28.762107,Polygon
+way,196614915,https://www.openstreetmap.org/way/196614915,,,refugee_generic,,,,,,,,-1.325623,28.757075,Polygon
+way,196624876,https://www.openstreetmap.org/way/196624876,,,refugee_site,,,,,,,,-1.336279,28.777256,Polygon
+way,196900528,https://www.openstreetmap.org/way/196900528,,,refugee_generic,,,,,,,,-1.362944,28.747614,Polygon
+way,197725842,https://www.openstreetmap.org/way/197725842,,,refugee_generic,,,,,,,,-1.650726,29.246543,Polygon
+way,197725852,https://www.openstreetmap.org/way/197725852,,,refugee_generic,,,,,,,,-1.612536,29.254863,Polygon
+way,338588086,https://www.openstreetmap.org/way/338588086,Mboti,,refugee_site,,,,,,,,4.024051,25.818984,Polygon
+way,382469011,https://www.openstreetmap.org/way/382469011,Site de réfugiés de Boyabu,,refugee_site,,,,,,,,3.731501,18.766964,Polygon
+way,421155625,https://www.openstreetmap.org/way/421155625,Kalinga,,refugee_site,,,,,,,,-1.406760,28.858322,Polygon
+way,469576936,https://www.openstreetmap.org/way/469576936,,,refugee_site,,,,,,,,-3.896131,29.096920,Polygon
+way,469576937,https://www.openstreetmap.org/way/469576937,,,refugee_site,,,,,,,,-3.896942,29.097518,Polygon
+way,478878238,https://www.openstreetmap.org/way/478878238,,,refugee_generic,,,,,,,,-1.594341,29.172290,Polygon
+way,598334031,https://www.openstreetmap.org/way/598334031,Bili,,refugee_site,,,,,,,,4.542682,19.920274,Polygon
+way,615518507,https://www.openstreetmap.org/way/615518507,Kaka2,,refugee_site,,,,,,,,3.706252,28.444283,Polygon
+way,656186865,https://www.openstreetmap.org/way/656186865,Kasama IDP camp,,refugee_site,,,,,,,,-6.032788,29.200644,Polygon
+way,788680517,https://www.openstreetmap.org/way/788680517,Meri,,refugee_site,,,,,,,,3.849879,30.201486,Polygon
+way,833835239,https://www.openstreetmap.org/way/833835239,,,refugee_site,,,,,,,,1.894281,30.599244,Polygon
+way,873264176,https://www.openstreetmap.org/way/873264176,Bele,,refugee_site,,,,,,,,3.636067,30.194839,Polygon
+way,874429961,https://www.openstreetmap.org/way/874429961,Inké,,refugee_site,,,,,,,,4.090130,20.766157,Polygon
+way,875093213,https://www.openstreetmap.org/way/875093213,Mole,,refugee_site,,,,,,,,4.134481,18.798996,Polygon
+way,913117698,https://www.openstreetmap.org/way/913117698,Lusenda,,refugee_site,,,,,,,,-3.887444,29.094019,Polygon
+way,913119610,https://www.openstreetmap.org/way/913119610,,,refugee_site,,,,,,,,-3.901127,29.096699,Polygon
+way,930144300,https://www.openstreetmap.org/way/930144300,,,refugee_site,,,,,,,,1.899066,30.618119,Polygon
+way,930165030,https://www.openstreetmap.org/way/930165030,,,refugee_site,,,,,,,,1.887324,30.592561,Polygon
+way,945155887,https://www.openstreetmap.org/way/945155887,,,refugee_site,,,,,,,,1.748621,30.344149,Polygon
+way,945155888,https://www.openstreetmap.org/way/945155888,,,refugee_site,,,,,,,,1.727537,30.340033,Polygon
+way,945547110,https://www.openstreetmap.org/way/945547110,,,refugee_site,,,,,,,,1.739876,30.340087,Polygon
+way,945547115,https://www.openstreetmap.org/way/945547115,,,refugee_site,,,,,,,,1.728778,30.332711,Polygon
+way,962968021,https://www.openstreetmap.org/way/962968021,,,refugee_site,,,,,,,,-3.263894,29.202139,Polygon
+way,1005191977,https://www.openstreetmap.org/way/1005191977,Site de Réfugiés de Modale,,refugee_site,,,,,,,,3.840704,22.404056,Polygon
+way,1013772995,https://www.openstreetmap.org/way/1013772995,Site de Kigonze,,refugee_site,,,,,,,,1.587710,30.239165,Polygon
+way,1013772996,https://www.openstreetmap.org/way/1013772996,Site de l'ISP,,refugee_site,,,,,,,,1.580320,30.247114,Polygon
+way,1077182718,https://www.openstreetmap.org/way/1077182718,Rwampara,,refugee_site,,,,,,,,1.540513,30.180750,Polygon
+way,1113077624,https://www.openstreetmap.org/way/1113077624,,,refugee_site,,,,,,,,-1.487573,28.735682,Polygon
+way,1158524232,https://www.openstreetmap.org/way/1158524232,Camp de Elohim,,refugee_site,,,,,,,,-1.614643,29.123096,Polygon
+way,1275735270,https://www.openstreetmap.org/way/1275735270,Camp de Elohim,,refugee_site,,,,,,,,-1.610814,29.124952,Polygon
+way,1278078498,https://www.openstreetmap.org/way/1278078498,Camp de Samsam,,refugee_site,,,,,,,,-1.606528,29.137696,Polygon
+way,1311207262,https://www.openstreetmap.org/way/1311207262,,,refugee_site,,,,,,,,-1.618744,29.106617,Polygon
+way,1322160836,https://www.openstreetmap.org/way/1322160836,,,refugee_site,,,,,,,,-1.612859,29.214781,Polygon
+way,1322160839,https://www.openstreetmap.org/way/1322160839,,,refugee_site,,,,,,,,-1.616409,29.214818,Polygon
+way,1336797066,https://www.openstreetmap.org/way/1336797066,Camp de Lac Vert Bulengo,Camp de Shiffra,refugee_site,,,,,,,,-1.610704,29.137660,Polygon
+way,1350864231,https://www.openstreetmap.org/way/1350864231,,,refugee_site,,,,,,,,-1.611196,29.142842,Polygon
+way,1465738218,https://www.openstreetmap.org/way/1465738218,,,refugee_site,,,,,,,,-1.064907,28.997645,Polygon
+way,1486816285,https://www.openstreetmap.org/way/1486816285,Camp de Plaine Savo,,refugee_site,,,,,,,,1.909042,30.589548,Polygon
+relation,12306400,https://www.openstreetmap.org/relation/12306400,Mulongwe,,refugee_shelter,,,,,,,,,,
+relation,12391443,https://www.openstreetmap.org/relation/12391443,,,refugee_site,,,,,,,,,,
+relation,12393895,https://www.openstreetmap.org/relation/12393895,,,refugee_site,,,,,,,,,,
+relation,12741799,https://www.openstreetmap.org/relation/12741799,,,refugee_site,,,,,,,,,,
+relation,12741800,https://www.openstreetmap.org/relation/12741800,,,refugee_site,,,,,,,,,,
+relation,12741801,https://www.openstreetmap.org/relation/12741801,,,refugee_site,,,,,,,,,,
+relation,12741802,https://www.openstreetmap.org/relation/12741802,,,refugee_site,,,,,,,,,,
+relation,12741803,https://www.openstreetmap.org/relation/12741803,,,refugee_site,,,,,,,,,,
+relation,15656489,https://www.openstreetmap.org/relation/15656489,Salama,Site Mbyo,refugee_site,,,,,2020-04-01,,,,,
+relation,17519343,https://www.openstreetmap.org/relation/17519343,Camp de Bulengo,,refugee_site,,,,,,,,,,
+relation,17537237,https://www.openstreetmap.org/relation/17537237,Camp de Shabindu,Camp de Kashaka,refugee_site,,,,,,,,,,
+relation,17747170,https://www.openstreetmap.org/relation/17747170,Camp de Rusayo 3,,refugee_site,,,,,,,,,,
+relation,17922699,https://www.openstreetmap.org/relation/17922699,Camp de Rusayo 2,,refugee_site,,,,,,,,,,
+relation,17922734,https://www.openstreetmap.org/relation/17922734,,,refugee_site,,,,,,,,,,
+relation,17922735,https://www.openstreetmap.org/relation/17922735,Lushgala extension,,refugee_site,,,,,,,,,,
+relation,17975643,https://www.openstreetmap.org/relation/17975643,Camp de Nzulo,,refugee_site,,,,,,,,,,
+relation,18316752,https://www.openstreetmap.org/relation/18316752,Camp de Lushagala,,refugee_site,,,,,,,,,,
+relation,18316797,https://www.openstreetmap.org/relation/18316797,Camp de Lwashi,,refugee_site,,,,,,,,,,
+relation,18546477,https://www.openstreetmap.org/relation/18546477,Camp de Rusayo 1,,refugee_site,,,,,,,,,,
+relation,19405982,https://www.openstreetmap.org/relation/19405982,,,refugee_generic,,,,,,,,,,
+relation,20292547,https://www.openstreetmap.org/relation/20292547,,,refugee_site,,,,,,,,,,

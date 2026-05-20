@@ -1,0 +1,13 @@
+source: "OpenStreetMap"
+citation: "OpenStreetMap contributors"
+source_url: "https://www.openstreetmap.org/"
+retrieved_on: "2026-05-20"
+license: "Open Database License (ODbL) 1.0 — https://www.openstreetmap.org/copyright"
+contact: "team@openstreetmap.us"
+runtime: python
+notes: |
+  Point-level refugee/IDP site locations in DRC, extracted from OSM nodes tagged
+  with category=refugee_site (88 nodes). Raw file in raw/drc_refugee_sites.csv;
+  same data also provided as GeoJSON in raw/drc_refugee_sites.geojson.
+  process.py aggregates by point-in-polygon against
+  data/shapefiles/DRC_Health_zones.shp to produce a count of sites per zone.
