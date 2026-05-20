@@ -1,0 +1,18 @@
+source: "WorldPop gridded population estimates aggregated to DRC health zones"
+citation: "WorldPop (2025). Population counts and densities for Democratic Republic of the Congo health zones. University of Southampton. https://www.worldpop.org. Health-zone geometry: DRC_Health_zones.shp (see data/shapefiles/)."
+source_url: "https://www.worldpop.org/"
+retrieved_on: "2026-05-20"
+license: "Creative Commons Attribution 4.0 International (CC BY 4.0); see https://www.worldpop.org/geodata/licensing"
+contact: "info@worldpop.org"
+runtime: R
+period: "2025"
+notes: |
+  Health-zone population count and density from WorldPop. Upstream rasters aggregated
+  via DARTS pipeline (planned; not yet in-repo)—processed/COD-2025-population.zs.nc
+  is the current intermediate (region = ZSCode; variables pop_count, area km²,
+  pop_density people/km²). data/worldpop/process.R joins to
+  data/shapefiles/DRC_Health_zones.shp on ZSCode, exports
+  processed/worldpop__pop_count__static.csv and
+  processed/worldpop__pop_density__static.csv (nom, counts/density), and maps
+  popcount_processed_plot.png / popdensity_processed_plot.png. raw/ is empty.
+  Coverage: national, 519 zones. See README.md for regeneration and limitations.
