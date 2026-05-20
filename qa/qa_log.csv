@@ -1,4 +1,4 @@
 dataset,file,type,status,n_rows,n_zones_covered,reasons,checked_at
-worldpop,metadata.yaml,metadata,pass,,,,2026-05-20T22:42:20+00:00
-worldpop,worldpop__pop_count__static.csv,vector,pass,519,519,,2026-05-20T22:42:20+00:00
-worldpop,worldpop__pop_density__static.csv,vector,pass,519,519,,2026-05-20T22:42:20+00:00
+ccvi,metadata.yaml,metadata,pass,,,,2026-05-20T23:02:30+00:00
+ccvi,ccvi__socioeconomic_deprivation__static.csv,vector,pass,519,519,,2026-05-20T23:02:30+00:00
+ccvi,ccvi__socioeconomic_inequality__static.csv,vector,pass,519,519,,2026-05-20T23:02:30+00:00

@@ -46,12 +46,25 @@ setwd(wd)
 # to geoJSON
 
 # Read ncdf
-ncdf_raw <- nc_open("data/ccvi/processed/COD-2022-2024-ccvi.zs.nc")
+ncdf_raw <- nc_open("data/ccvi/raw/COD-2022-2024-ccvi.zs.nc")
 names(ncdf_raw$var)
 names(ncdf_raw$dim)
 
 # Read healthzone shapefile
 healthzone_shapefile <- st_read("data/shapefiles/DRC_Health_zones.shp")
+
+# Disambiguate Nom for zones whose name appears in more than one province
+# (currently Bili and Lubunga), mirroring the Python schema contract.
+nom_counts <- healthzone_shapefile |>
+  dplyr::count(Nom) |>
+  dplyr::filter(n > 1) |>
+  dplyr::pull(Nom)
+healthzone_shapefile <- healthzone_shapefile |>
+  dplyr::mutate(Nom = dplyr::if_else(
+    Nom %in% nom_counts,
+    paste0(Nom, " (", PROVINCE, ")"),
+    Nom
+  ))
 
 # Socioeconomic Inequality
 vals <- ncdf4::ncvar_get(
