@@ -27,7 +27,9 @@ Run from repo root:
 from __future__ import annotations
 
 import csv
+import datetime as dt
 import json
+import subprocess
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -150,6 +152,19 @@ def _attach_vector(folder: Path, file_name: str, parsed, features_by_nom: dict[s
     return attached
 
 
+def _current_short_sha() -> str:
+    """Return `git rev-parse --short HEAD`. Empty string if not in a git tree."""
+    try:
+        out = subprocess.check_output(
+            ["git", "rev-parse", "--short", "HEAD"],
+            cwd=str(REPO_ROOT),
+            stderr=subprocess.DEVNULL,
+        )
+        return out.decode().strip()
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return ""
+
+
 def _build_manifest(qa_rows: list[dict], attached_counts: dict[tuple[str, str], int]) -> dict:
     # Include every folder that passed metadata QA so placeholders are visible
     # in the index, even when they have no outputs yet.
@@ -205,6 +220,8 @@ def _build_manifest(qa_rows: list[dict], attached_counts: dict[tuple[str, str], 
     return {
         "shapefile": "data/shapefiles/DRC_Health_zones.shp",
         "n_features": len(load_zones()),
+        "built_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
+        "commit": _current_short_sha(),
         "datasets": datasets,
     }
 
