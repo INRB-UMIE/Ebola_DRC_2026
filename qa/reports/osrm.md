@@ -1,27 +1,25 @@
 # QA report: osrm
 
-_Checked: 2026-05-21T11:44:06+00:00_
+_Checked: 2026-05-21T14:33:08+00:00_
 
-**Status counts:** {'pass': 1, 'fail': 2}
+**Status counts:** {'pass': 1, 'warn': 2}
 
 ## `metadata.yaml` (metadata) — **pass**
 
-## `osrm__road_distance__static.matrix.csv` (matrix) — **fail**
+## `osrm__road_distance__static.matrix.csv` (matrix) — **warn**
 - rows: 519
 - cols: 519
 - zones covered: 519 / 519
 - resolution: static
 - square: True
 - reasons:
-  - 20 destination headers unresolved (sample: ['Seke Banza', 'Boko Kivulu', 'Mbanza Ngungu', 'Kwilu Ngongo', 'Masi Manimba'])
-  - 1036 non-numeric or negative cells
+  - 1036 missing cells (empty/NA) (warn)
 
-## `osrm__travel_time__static.matrix.csv` (matrix) — **fail**
+## `osrm__travel_time__static.matrix.csv` (matrix) — **warn**
 - rows: 519
 - cols: 519
 - zones covered: 519 / 519
 - resolution: static
 - square: True
 - reasons:
-  - 20 destination headers unresolved (sample: ['Seke Banza', 'Boko Kivulu', 'Mbanza Ngungu', 'Kwilu Ngongo', 'Masi Manimba'])
-  - 1036 non-numeric or negative cells
+  - 1036 missing cells (empty/NA) (warn)

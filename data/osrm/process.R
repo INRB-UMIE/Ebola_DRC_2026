@@ -21,23 +21,25 @@ setwd(wd)
 shapefile_name <- "data/shapefiles/DRC_Health_zones.shp" 
 
 tryCatch({
-  zones_sf <- st_read(shapefile_name, quiet = TRUE)
+  zones_sf <- st_read(shapefile_name, quiet = TRUE)|>
+    st_make_valid()
+  # Disambiguate Nom for zones whose name appears in more than one province
+  # (currently Bili and Lubunga), mirroring the Python schema contract.
+  nom_counts <- zones_sf |>
+    dplyr::count(Nom) |>
+    dplyr::filter(n > 1) |>
+    dplyr::pull(Nom)
+  zones_sf <- zones_sf |>
+    dplyr::mutate(Nom = dplyr::if_else(
+      Nom %in% nom_counts,
+      paste0(Nom, " (", PROVINCE, ")"),
+      Nom
+    )) 
+  
 }, error = function(e) {
   stop("Error reading file. Please ensure the shapefile exists and is named correctly.")
 })
 
-# Disambiguate Nom for zones whose name appears in more than one province
-# (currently Bili and Lubunga), mirroring the Python schema contract.
-nom_counts <- zones_sf |>
-  dplyr::count(Nom) |>
-  dplyr::filter(n > 1) |>
-  dplyr::pull(Nom)
-zones_sf <- zones_sf |>
-  dplyr::mutate(Nom = dplyr::if_else(
-    Nom %in% nom_counts,
-    paste0(Nom, " (", PROVINCE, ")"),
-    Nom
-  ))
 
 # ------------------------- 3. Prepare Centroids -------------------------------
 # The API requires coordinates in degrees, not meters.
@@ -73,8 +75,8 @@ colnames(full_dist_matrix) <- centroids_sf$ID_Code
 # Define the start indices for our chunks
 indices <- seq(1, total_zones, by = CHUNK_SIZE)
 
-print(paste("Starting processing for", total_zones, "zones."))
-print(paste("Total batches to process:", length(indices) * length(indices)))
+message(paste("Starting processing for", total_zones, "zones."))
+message(paste("Total batches to process:", length(indices) * length(indices)))
 
 # ------------------------- 5. Loop over batches -------------------------------
 tic("Total processing time") # Start timer
@@ -129,16 +131,18 @@ message("Processing Complete. Preview of Duration Matrix:")
 print(full_dur_matrix[1:5, 1:5])
 
 # Save results
-# write_matrix_csv: converts named R matrix to the QA contract format:
-#   header = nom, dest1, dest2, ...  (spaces preserved, no row-index column)
-write_matrix_csv <- function(m, file) {
-  df <- as.data.frame(m, check.names = FALSE)
-  df <- cbind(nom = rownames(df), df)
-  write.csv(df, file, row.names = FALSE, quote = TRUE)
-}
 
-write_matrix_csv(full_dur_matrix, "data/osrm/processed/osrm__travel_time__static.matrix.csv")
-write_matrix_csv(full_dist_matrix_km, "data/osrm/processed/osrm__road_distance__static.matrix.csv")
+write.csv(full_dur_matrix, "data/osrm/processed/osrm__travel_time__static.matrix.csv", row.names = T)
+write.csv(full_dist_matrix_km, "data/osrm/processed/osrm__road_distance__static.matrix.csv", row.names = T)
+
+full_dur_matrix_2 <- read.csv("data/osrm/processed/osrm__travel_time__static.matrix.csv") 
+colnames(full_dur_matrix_2) <- c("nom", full_dur_matrix_2$X)
+
+full_dist_matrix_km_2 <- read.csv("data/osrm/processed/osrm__road_distance__static.matrix.csv") 
+colnames(full_dist_matrix_km_2) <- c("nom", full_dist_matrix_km_2$X)
+
+write.csv(full_dur_matrix_2, "data/osrm/processed/osrm__travel_time__static.matrix.csv", row.names = F)
+write.csv(full_dist_matrix_km_2, "data/osrm/processed/osrm__road_distance__static.matrix.csv", row.names = F)
 
 message("Files saved to working directory.")
 

@@ -1,32 +1,32 @@
 dataset,file,type,status,n_rows,n_zones_covered,reasons,checked_at
-ACLED_conflict,metadata.yaml,metadata,pass,,,,2026-05-21T11:44:06+00:00
-ACLED_conflict,processed/,structure,warn,,,no processed/ directory,2026-05-21T11:44:06+00:00
-IDP,metadata.yaml,metadata,pass,,,,2026-05-21T11:44:06+00:00
-IDP,idp__individuals__monthly.matrix.csv,matrix,pass,4004,44,,2026-05-21T11:44:06+00:00
-IDP,idp__individuals__static.matrix.csv,matrix,pass,44,44,,2026-05-21T11:44:06+00:00
-IDP,idp__individuals__weekly.matrix.csv,matrix,pass,12584,44,,2026-05-21T11:44:06+00:00
-ccvi,metadata.yaml,metadata,pass,,,,2026-05-21T11:44:06+00:00
-ccvi,ccvi__socioeconomic_deprivation__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-21T11:44:06+00:00
-ccvi,ccvi__socioeconomic_inequality__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-21T11:44:06+00:00
-cross-border-movements,metadata.yaml,metadata,pass,,,,2026-05-21T11:44:06+00:00
-cross-border-movements,cross_border__poe_passengers__static.csv,vector,pass,7,7,,2026-05-21T11:44:06+00:00
-epi,metadata.yaml,metadata,pass,,,,2026-05-21T11:44:06+00:00
-epi,epi__cases__weekly.csv,vector,pass,7,7,,2026-05-21T11:44:06+00:00
-fao_lccs,metadata.yaml,metadata,pass,,,,2026-05-21T11:44:06+00:00
-fao_lccs,fao_lccs__urban_fraction__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-21T11:44:06+00:00
-flowminder,metadata.yaml,metadata,pass,,,,2026-05-21T11:44:06+00:00
-flowminder,flowminder__inflow__static.matrix.csv,matrix,pass,101,101,,2026-05-21T11:44:06+00:00
-flowminder,flowminder__outflow__static.matrix.csv,matrix,pass,101,101,,2026-05-21T11:44:06+00:00
-gdp_pc,metadata.yaml,metadata,pass,,,,2026-05-21T11:44:06+00:00
-gdp_pc,gdp_pc__gdp_pc__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-21T11:44:06+00:00
-healthsites_io,metadata.yaml,metadata,pass,,,,2026-05-21T11:44:06+00:00
-healthsites_io,healthsites_io__healthsite_count__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-21T11:44:06+00:00
-healthsites_io,healthsites_io__healthsite_density__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-21T11:44:06+00:00
-osrm,metadata.yaml,metadata,pass,,,,2026-05-21T11:44:06+00:00
-osrm,osrm__road_distance__static.matrix.csv,matrix,fail,519,519,"20 destination headers unresolved (sample: ['Seke Banza', 'Boko Kivulu', 'Mbanza Ngungu', 'Kwilu Ngongo', 'Masi Manimba']); 1036 non-numeric or negative cells",2026-05-21T11:44:06+00:00
-osrm,osrm__travel_time__static.matrix.csv,matrix,fail,519,519,"20 destination headers unresolved (sample: ['Seke Banza', 'Boko Kivulu', 'Mbanza Ngungu', 'Kwilu Ngongo', 'Masi Manimba']); 1036 non-numeric or negative cells",2026-05-21T11:44:06+00:00
-refugee_sites,metadata.yaml,metadata,pass,,,,2026-05-21T11:44:06+00:00
-refugee_sites,refugee_sites__sites__static.csv,vector,pass,23,23,,2026-05-21T11:44:06+00:00
-worldpop,metadata.yaml,metadata,pass,,,,2026-05-21T11:44:06+00:00
-worldpop,worldpop__pop_count__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-21T11:44:06+00:00
-worldpop,worldpop__pop_density__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-21T11:44:06+00:00
+ACLED_conflict,metadata.yaml,metadata,pass,,,,2026-05-21T14:33:08+00:00
+ACLED_conflict,processed/,structure,warn,,,no processed/ directory,2026-05-21T14:33:08+00:00
+IDP,metadata.yaml,metadata,pass,,,,2026-05-21T14:33:08+00:00
+IDP,idp__individuals__monthly.matrix.csv,matrix,pass,4004,44,,2026-05-21T14:33:08+00:00
+IDP,idp__individuals__static.matrix.csv,matrix,pass,44,44,,2026-05-21T14:33:08+00:00
+IDP,idp__individuals__weekly.matrix.csv,matrix,pass,12584,44,,2026-05-21T14:33:08+00:00
+ccvi,metadata.yaml,metadata,pass,,,,2026-05-21T14:33:08+00:00
+ccvi,ccvi__socioeconomic_deprivation__static.csv,vector,pass,519,519,,2026-05-21T14:33:08+00:00
+ccvi,ccvi__socioeconomic_inequality__static.csv,vector,pass,519,519,,2026-05-21T14:33:08+00:00
+cross-border-movements,metadata.yaml,metadata,pass,,,,2026-05-21T14:33:08+00:00
+cross-border-movements,cross_border__poe_passengers__static.csv,vector,pass,7,7,,2026-05-21T14:33:08+00:00
+epi,metadata.yaml,metadata,pass,,,,2026-05-21T14:33:08+00:00
+epi,epi__cases__weekly.csv,vector,pass,7,7,,2026-05-21T14:33:08+00:00
+fao_lccs,metadata.yaml,metadata,pass,,,,2026-05-21T14:33:08+00:00
+fao_lccs,fao_lccs__urban_fraction__static.csv,vector,pass,519,519,,2026-05-21T14:33:08+00:00
+flowminder,metadata.yaml,metadata,pass,,,,2026-05-21T14:33:08+00:00
+flowminder,flowminder__inflow__static.matrix.csv,matrix,pass,101,101,,2026-05-21T14:33:08+00:00
+flowminder,flowminder__outflow__static.matrix.csv,matrix,pass,101,101,,2026-05-21T14:33:08+00:00
+gdp_pc,metadata.yaml,metadata,pass,,,,2026-05-21T14:33:08+00:00
+gdp_pc,gdp_pc__gdp_pc__static.csv,vector,pass,519,519,,2026-05-21T14:33:08+00:00
+healthsites_io,metadata.yaml,metadata,pass,,,,2026-05-21T14:33:08+00:00
+healthsites_io,healthsites_io__healthsite_count__static.csv,vector,pass,519,519,,2026-05-21T14:33:08+00:00
+healthsites_io,healthsites_io__healthsite_density__static.csv,vector,pass,519,519,,2026-05-21T14:33:08+00:00
+osrm,metadata.yaml,metadata,pass,,,,2026-05-21T14:33:08+00:00
+osrm,osrm__road_distance__static.matrix.csv,matrix,warn,519,519,1036 missing cells (empty/NA) (warn),2026-05-21T14:33:08+00:00
+osrm,osrm__travel_time__static.matrix.csv,matrix,warn,519,519,1036 missing cells (empty/NA) (warn),2026-05-21T14:33:08+00:00
+refugee_sites,metadata.yaml,metadata,pass,,,,2026-05-21T14:33:08+00:00
+refugee_sites,refugee_sites__sites__static.csv,vector,pass,23,23,,2026-05-21T14:33:08+00:00
+worldpop,metadata.yaml,metadata,pass,,,,2026-05-21T14:33:08+00:00
+worldpop,worldpop__pop_count__static.csv,vector,pass,519,519,,2026-05-21T14:33:08+00:00
+worldpop,worldpop__pop_density__static.csv,vector,pass,519,519,,2026-05-21T14:33:08+00:00

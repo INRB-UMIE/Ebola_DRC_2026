@@ -1,6 +1,8 @@
 dataset,file,resolution,n_rows,n_cols,square,date_range,n_zones_covered,checked_at
-IDP,idp__individuals__monthly.matrix.csv,monthly,4004,44,,2016-02-01..2025-12-01,44,2026-05-21T11:44:06+00:00
-IDP,idp__individuals__static.matrix.csv,static,44,44,True,,44,2026-05-21T11:44:06+00:00
-IDP,idp__individuals__weekly.matrix.csv,weekly,12584,44,,2016-02-15..2025-12-22,44,2026-05-21T11:44:06+00:00
-flowminder,flowminder__inflow__static.matrix.csv,static,101,101,True,,101,2026-05-21T11:44:06+00:00
-flowminder,flowminder__outflow__static.matrix.csv,static,101,101,True,,101,2026-05-21T11:44:06+00:00
+IDP,idp__individuals__monthly.matrix.csv,monthly,4004,44,,2016-02-01..2025-12-01,44,2026-05-21T14:33:08+00:00
+IDP,idp__individuals__static.matrix.csv,static,44,44,True,,44,2026-05-21T14:33:08+00:00
+IDP,idp__individuals__weekly.matrix.csv,weekly,12584,44,,2016-02-15..2025-12-22,44,2026-05-21T14:33:08+00:00
+flowminder,flowminder__inflow__static.matrix.csv,static,101,101,True,,101,2026-05-21T14:33:08+00:00
+flowminder,flowminder__outflow__static.matrix.csv,static,101,101,True,,101,2026-05-21T14:33:08+00:00
+osrm,osrm__road_distance__static.matrix.csv,static,519,519,True,,519,2026-05-21T14:33:08+00:00
+osrm,osrm__travel_time__static.matrix.csv,static,519,519,True,,519,2026-05-21T14:33:08+00:00

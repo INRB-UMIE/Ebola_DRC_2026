@@ -25,7 +25,8 @@ Matrix file contract (`.matrix.csv`):
     Time-series (any other resolution):
         Header row: date, nom, <dest_nom_1>, <dest_nom_2>, ...
         First column = ISO date; second column = origin nom; remaining = destinations.
-    Cells must be non-negative numeric. Empty cells are warned, not failed.
+    Cells must be non-negative numeric when present. Missing cells (empty or NA)
+    are allowed and reported as warnings, not failures — e.g. unroutable OSRM pairs.
 """
 
 from __future__ import annotations
@@ -57,6 +58,12 @@ REPORTS_DIR = QA_DIR / "reports"
 
 EXCLUDED_FOLDERS = {"shapefiles"}
 DATE_COLUMN_CANDIDATES = ("date", "week_start", "month_start", "year")
+# R write.csv() and other exports use these for missing matrix cells.
+_MATRIX_MISSING_MARKERS = frozenset({"", "NA", "NaN", "nan", "NULL", "null"})
+
+
+def _is_matrix_missing(value: str) -> bool:
+    return value.strip() in _MATRIX_MISSING_MARKERS
 
 
 @dataclass
@@ -225,7 +232,7 @@ def qa_matrix(dataset: str, path: Path, parsed) -> FileResult:
     unresolved_origin: list[str] = []
     canonical_seen: set[str] = set()
     bad_values = 0
-    empty_cells = 0
+    missing_cells = 0
     dates_seen: set[str] = set()
 
     for ri, row in enumerate(rows, start=2):
@@ -241,8 +248,8 @@ def qa_matrix(dataset: str, path: Path, parsed) -> FileResult:
         if date_i is not None:
             dates_seen.add(row[date_i])
         for v in row[dest_start:]:
-            if v == "":
-                empty_cells += 1
+            if _is_matrix_missing(v):
+                missing_cells += 1
                 continue
             try:
                 fv = float(v)
@@ -258,14 +265,17 @@ def qa_matrix(dataset: str, path: Path, parsed) -> FileResult:
         )
     if bad_values:
         reasons.append(f"{bad_values} non-numeric or negative cells")
-    if empty_cells:
-        reasons.append(f"{empty_cells} empty cells (warn)")
+    if missing_cells:
+        reasons.append(f"{missing_cells} missing cells (empty/NA) (warn)")
 
-    fatal = [
-        r for r in reasons
-        if not r.endswith("(warn)")
-    ]
-    status = "fail" if fatal else "pass"
+    fatal = [r for r in reasons if not r.endswith("(warn)")]
+    has_warn = any(r.endswith("(warn)") for r in reasons)
+    if fatal:
+        status = "fail"
+    elif has_warn:
+        status = "warn"
+    else:
+        status = "pass"
 
     # "square" only meaningful for snapshot matrices. Compare unique canonical
     # origins to destinations, not raw row count: a matrix with collapsible
@@ -357,7 +367,7 @@ def write_logs(results: list[FileResult]) -> None:
             "square", "date_range", "n_zones_covered", "checked_at",
         ])
         for r in results:
-            if r.type == "matrix" and r.status == "pass":
+            if r.type == "matrix" and r.status in ("pass", "warn"):
                 w.writerow([
                     r.dataset, r.file, r.resolution, r.n_rows, r.n_cols,
                     "" if r.square is None else r.square,
