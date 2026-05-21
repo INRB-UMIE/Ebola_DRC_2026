@@ -15,11 +15,10 @@ These data support outbreak and connectivity analyses where built-up environment
 | File | Description |
 |-----------------------|-------------------------------------------------|
 | `processed/fao_lccs__urban_fraction__static.csv` | Repo contract table: `nom`, `urban_fraction` (519 rows) |
-| `processed/COD-2022-satellite_land_cover_urban.zs.nc` | Intermediate NetCDF: urban fraction by health-zone code (`ZSCode`), 2022 snapshot |
+| `raw/COD-2022-satellite_land_cover_urban.zs.nc` | Intermediate NetCDF: urban fraction by health-zone code (`ZSCode`), 2022 snapshot |
 | `processed_plot.png` | Map of urban fraction by health zone |
 | `process.R` | Join NetCDF to shapefile, plot, and write CSV |
 | `query_cds_api.py` | Draft CDS API downloader (not yet wired to this folder’s `raw/` layout) |
-| `raw/` | Reserved for raw CDS downloads (currently empty) |
 
 **Coverage:** 519 health zones (national), aligned with `data/shapefiles/DRC_Health_zones.shp`.\
 **Temporal scope:** Static extract for **2022** (`COD-2022-…`); the NetCDF contains a single time layer.
@@ -64,7 +63,8 @@ From the **repository root**:
 
 ``` bash
 # Optional: fetch raw CDS tiles (requires ~/.cdsapirc credentials; script paths still being aligned)
-python3 data/fao_lccs/query_cds_api.py download --start_year 2022 --end_year 2022
+# python3 data/fao_lccs/query_cds_api.py download --start_year 2022 --end_year 2022
+# Don't run this yet, but it's pending
 
 # Rebuild plot and CSV from committed NetCDF
 Rscript data/fao_lccs/process.R
@@ -82,7 +82,6 @@ Rscript data/fao_lccs/process.R
 | **Static year** | Values reflect the **2022** land-cover layer only; not a time series in this folder. |
 | **Raster → zone** | Fractions are aggregated to health-zone polygons (exact zonal statistics depend on the upstream DARTS/raster workflow). |
 | **Urban definition** | Binary LCCS class 190 only; informal settlements or peri-urban fringe may be misclassified relative to local knowledge. |
-| **Duplicate `nom`** | Two zones share the name **Bili** and two **Lubunga**; use `ZSCode` from the shapefile for unambiguous joins. |
 | **Pipeline in flux** | Raw CDS download and DARTS processing are not fully reproducible from this repo yet; `processed/COD-2022-satellite_land_cover_urban.zs.nc` is the current source of truth for regeneration. |
 
 ------------------------------------------------------------------------
