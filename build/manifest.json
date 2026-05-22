@@ -1,8 +1,8 @@
 {
   "shapefile": "data/shapefiles/DRC_Health_zones.shp",
   "n_features": 519,
-  "built_at": "2026-05-22T00:42:27+00:00",
-  "commit": "b9c9346",
+  "built_at": "2026-05-22T14:56:59+00:00",
+  "commit": "8259588",
   "datasets": [
     {
       "folder": "ACLED_conflict",
@@ -205,6 +205,38 @@
       ]
     },
     {
+      "folder": "grid3_healthsites",
+      "source": "GRID3 COD Health Facilities v8.0, aggregated to DRC health zones",
+      "citation": "Center for Integrated Earth System Information (CIESIN), Columbia University; Minist\u00e8re de la Sant\u00e9 Publique, Hygi\u00e8ne et Pr\u00e9vention, Democratic Republic of the Congo; GRID3 (2025). GRID3 COD \u2014 Health Facilities v8.0. https://doi.org/10.7916/f1ft-y872. Health-zone geometry: DRC_Health_zones.shp (see data/shapefiles/).",
+      "source_url": "https://data.grid3.org/datasets/GRID3::grid3-cod-health-facilities-v8-0/about",
+      "retrieved_on": "2026-05-20",
+      "license": "Creative Commons Attribution 4.0 International (CC BY 4.0); Copyright 2025 The Trustees of Columbia University in the City of New York",
+      "contact": "info@ciesin.columbia.edu",
+      "status": "active",
+      "outputs": [
+        {
+          "file": "grid3_healthsites__healthsite_count__static.csv",
+          "type": "vector",
+          "dataset_token": "grid3_healthsites",
+          "metric": "healthsite_count",
+          "resolution": "static",
+          "in_geojson": true,
+          "zones_with_values": 519,
+          "long_csv": "build/long/grid3_healthsites__healthsite_count.csv"
+        },
+        {
+          "file": "grid3_healthsites__healthsite_density__static.csv",
+          "type": "vector",
+          "dataset_token": "grid3_healthsites",
+          "metric": "healthsite_density",
+          "resolution": "static",
+          "in_geojson": true,
+          "zones_with_values": 519,
+          "long_csv": "build/long/grid3_healthsites__healthsite_density.csv"
+        }
+      ]
+    },
+    {
       "folder": "healthsites_io",
       "source": "Healthsites.io OpenStreetMap health-facility extract (DRC), aggregated to health zones",
       "citation": "OpenStreetMap contributors; Healthsites.io (https://healthsites.io). Democratic Republic of the Congo node extract. Health-zone geometry: DRC_Health_zones.shp (see data/shapefiles/).",
@@ -233,6 +265,138 @@
           "in_geojson": true,
           "zones_with_values": 519,
           "long_csv": "build/long/healthsites_io__healthsite_density.csv"
+        }
+      ]
+    },
+    {
+      "folder": "insp_sitrep",
+      "source": "Institut National de Sant\u00e9 Publique (INSP) Situation Reports \u2014 SitRep MVE series (2026 Bundibugyo Ebolavirus outbreak)",
+      "citation": "Institut National de Sant\u00e9 Publique (INSP), Democratic Republic of the Congo. Situation reports on the 2026 Bundibugyo Ebolavirus outbreak (SitRep MVE 001\u2013006, 2026). Health-zone geometry: DRC_Health_zones.shp (see data/shapefiles/).",
+      "source_url": "https://insp.cd/",
+      "retrieved_on": "2026-05-20",
+      "license": "INSP outbreak sitreps; reuse with attribution to INSP and citation of the specific report number and date. Confirm distribution terms with INSP before external republication.",
+      "contact": "pierre.akilimali@insp.cd",
+      "status": "active",
+      "outputs": [
+        {
+          "file": "insp_sitrep__contacts_seen__daily.csv",
+          "type": "vector",
+          "dataset_token": "insp_sitrep",
+          "metric": "contacts_seen",
+          "resolution": "daily",
+          "in_geojson": true,
+          "zones_with_values": 7,
+          "long_csv": "build/long/insp_sitrep__contacts_seen.csv"
+        },
+        {
+          "file": "insp_sitrep__cumulative_confirmed_cases__daily.csv",
+          "type": "vector",
+          "dataset_token": "insp_sitrep",
+          "metric": "cumulative_confirmed_cases",
+          "resolution": "daily",
+          "in_geojson": true,
+          "zones_with_values": 8,
+          "long_csv": "build/long/insp_sitrep__cumulative_confirmed_cases.csv"
+        },
+        {
+          "file": "insp_sitrep__cumulative_confirmed_deaths__daily.csv",
+          "type": "vector",
+          "dataset_token": "insp_sitrep",
+          "metric": "cumulative_confirmed_deaths",
+          "resolution": "daily",
+          "in_geojson": true,
+          "zones_with_values": 8,
+          "long_csv": "build/long/insp_sitrep__cumulative_confirmed_deaths.csv"
+        },
+        {
+          "file": "insp_sitrep__cumulative_contacts_isolated__daily.csv",
+          "type": "vector",
+          "dataset_token": "insp_sitrep",
+          "metric": "cumulative_contacts_isolated",
+          "resolution": "daily",
+          "in_geojson": true,
+          "zones_with_values": 7,
+          "long_csv": "build/long/insp_sitrep__cumulative_contacts_isolated.csv"
+        },
+        {
+          "file": "insp_sitrep__cumulative_contacts_traced__daily.csv",
+          "type": "vector",
+          "dataset_token": "insp_sitrep",
+          "metric": "cumulative_contacts_traced",
+          "resolution": "daily",
+          "in_geojson": true,
+          "zones_with_values": 7,
+          "long_csv": "build/long/insp_sitrep__cumulative_contacts_traced.csv"
+        },
+        {
+          "file": "insp_sitrep__cumulative_suspected_cases__daily.csv",
+          "type": "vector",
+          "dataset_token": "insp_sitrep",
+          "metric": "cumulative_suspected_cases",
+          "resolution": "daily",
+          "in_geojson": true,
+          "zones_with_values": 8,
+          "long_csv": "build/long/insp_sitrep__cumulative_suspected_cases.csv"
+        },
+        {
+          "file": "insp_sitrep__cumulative_suspected_deaths__daily.csv",
+          "type": "vector",
+          "dataset_token": "insp_sitrep",
+          "metric": "cumulative_suspected_deaths",
+          "resolution": "daily",
+          "in_geojson": true,
+          "zones_with_values": 8,
+          "long_csv": "build/long/insp_sitrep__cumulative_suspected_deaths.csv"
+        },
+        {
+          "file": "insp_sitrep__new_confirmed_cases__daily.csv",
+          "type": "vector",
+          "dataset_token": "insp_sitrep",
+          "metric": "new_confirmed_cases",
+          "resolution": "daily",
+          "in_geojson": true,
+          "zones_with_values": 8,
+          "long_csv": "build/long/insp_sitrep__new_confirmed_cases.csv"
+        },
+        {
+          "file": "insp_sitrep__new_contacts_isolated__daily.csv",
+          "type": "vector",
+          "dataset_token": "insp_sitrep",
+          "metric": "new_contacts_isolated",
+          "resolution": "daily",
+          "in_geojson": true,
+          "zones_with_values": 7,
+          "long_csv": "build/long/insp_sitrep__new_contacts_isolated.csv"
+        },
+        {
+          "file": "insp_sitrep__new_contacts_listed__daily.csv",
+          "type": "vector",
+          "dataset_token": "insp_sitrep",
+          "metric": "new_contacts_listed",
+          "resolution": "daily",
+          "in_geojson": true,
+          "zones_with_values": 7,
+          "long_csv": "build/long/insp_sitrep__new_contacts_listed.csv"
+        },
+        {
+          "file": "insp_sitrep__new_suspected_cases__daily.csv",
+          "type": "vector",
+          "dataset_token": "insp_sitrep",
+          "metric": "new_suspected_cases",
+          "resolution": "daily",
+          "in_geojson": true,
+          "zones_with_values": 8,
+          "long_csv": "build/long/insp_sitrep__new_suspected_cases.csv"
+        },
+        {
+          "file": "insp_sitrep__new_suspected_deaths__daily.csv",
+          "type": "vector",
+          "dataset_token": "insp_sitrep",
+          "metric": "new_suspected_deaths",
+          "resolution": "daily",
+          "in_geojson": true,
+          "zones_with_values": 8,
+          "long_csv": "build/long/insp_sitrep__new_suspected_deaths.csv"
         }
       ]
     },

@@ -8,37 +8,46 @@ Data for the 2026 Bundibugyo Ebolavirus (BDBV) outbreak.
 
 </p>
 
-This work is led by the Institut National de Recherche Biomédicale (INRB) Kinshasa/One Health Institute for Africa (INOHA) Kinshasa (Dav Ebengo, Placide Mbala-Kingebeni and Tania Bishola), and the Institut National de Santé Publique (INSP) (Pierre Akilimali, Adelard Lofungola) in collaboration with partners across the University of Oxford and Northeastern University; please contact [dav.ebengo\@umie-inrb.org](mailto:dav.ebengo@umie-inrb.org) or pierre.akilimali@insp.cd for further information.
+This work is led by the Institut National de Recherche Biomédicale (INRB) Kinshasa/One Health Institute for Africa (INOHA) Kinshasa (Dav Ebengo, Placide Mbala-Kingebeni and Tania Bishola), and the Institut National de Santé Publique (INSP) (Pierre Akilimali, Adelard Lofungola) in collaboration with partners across the University of Oxford and Northeastern University; please contact [dav.ebengo\@umie-inrb.org](mailto:dav.ebengo@umie-inrb.org) or [pierre.akilimali\@insp.cd](mailto:pierre.akilimali@insp.cd){.email} for further information.
 
-Last successful build: **22 May 2026, 00:42 (UTC)** (commit `b9c9346`).
+Last successful build: **22 May 2026, 14:56:59 (UTC)** (commit `8259588`).
 
 # Data sources
 
 -   **DRC health zones:** [Humanitarian Data Exchange](https://data.humdata.org/dataset/drc-health-data) (MoH zones de santé shapefile)
--   **Epidemiological data:** [Weekly External Situation Report 01, Data as of 18 May 2026](https://iris.who.int/server/api/core/bitstreams/bb1d4668-04e0-4563-b7c4-d1bdefbc9f05/content)
--   **Road travel times:** [OSRM](http://project-osrm.org/) public demo
+-   **Epidemiological data (WHO):** [Weekly External Situation Report 01, Data as of 18 May 2026](https://iris.who.int/server/api/core/bitstreams/bb1d4668-04e0-4563-b7c4-d1bdefbc9f05/content) (`data/epi/`)
+-   **Epidemiological & operational data (INSP):** [Institut National de Santé Publique (INSP)](https://insp.cd/) SitRep MVE PDF series (`data/insp_sitrep/`) — daily case, death, and contact-tracing indicators by health zone
+-   **Road travel times:** [OSRM](http://project-osrm.org/) public demo (`data/osrm/`, matrix outputs)
 -   **Cross-border travel:** [Imperial College Report](https://www.imperial.ac.uk/mrc-global-infectious-disease-analysis/research-themes/preparedness-and-response-to-emerging-threats/report-ebola-18-05-2026/)
 -   **Conflicts and acts of violence:** [ACLED](https://acleddata.com)
 -   **Internal displacements:** International Organisation for Migrants ([IOM](https://dtm.iom.int))
--   **Population size rasters**: [GRID3 v4.4 gridded population](https://data.grid3.org/maps/a3db539c0fae4c05aed92ed67e11fe2b/about)
--   **Health facilities**: [GRID3 COD Health Facilities v8.0](https://data.grid3.org/datasets/GRID3::grid3-cod-health-facilities-v8-0/about)
--   **Health facilities (OSM / crowdsourced):** [Healthsites.io](https://healthsites.io/)
+-   **Population size rasters:** [GRID3 v4.4 gridded population](https://data.grid3.org/maps/a3db539c0fae4c05aed92ed67e11fe2b/about)
+-   **Health facilities (GRID3):** [GRID3 COD Health Facilities v8.0](https://data.grid3.org/datasets/GRID3::grid3-cod-health-facilities-v8-0/about) (`data/grid3_healthsites/`)
+-   **Health facilities (OSM / crowdsourced):** [Healthsites.io](https://healthsites.io/) (`data/healthsites_io/`)
 -   **Mobile phone-based internal displacement estimates:** [Flowminder.org](https://www.flowminder.org/resources/publications-reports/drc-reports-publications)
 
 For the latest BDBV genomic data, please visit [Pathoplexus](https://pathoplexus.org/ebola-bdbv/search).
 
 ## Pending data sources
+
 We are tracking pending data sources over on the [issues tab](https://github.com/kraemer-lab/Ebola_DRC_2026/issues). If you want to request a specific publicly available dataset, raise an issue (although raising an issue does not guarantee that we will incorporate a dataset.
 
 # Current build (2026-05-22)
 
-Snapshot of `build/drc_health_zones.geojson` (519 zones, \~25 MB) and the matrix catalogue, at commit `99ee96c`. Re-run `python -m tools.build_geojson` after pulling to regenerate locally; `build/manifest.json` carries the same information in machine-readable form.
+Snapshot of `build/drc_health_zones.geojson` (519 zones, \~25 MB) and the matrix catalogue, at commit `8259588` (`built_at` in `build/manifest.json`). Re-run `python -m tools.build_geojson` after pulling to regenerate locally; `build/manifest.json` carries the same information in machine-readable form.
 
 <!-- whats-new:start -->
-Second release on  22 May 2026
-- only for testing
-- no change from previous release
-<!-- whats-new:end -->
+
+**22 May 2026 (commit `8259588`)** - **`insp_sitrep`** — twelve daily health-zone tables from INSP SitRep MVE reports (suspected/confirmed cases and deaths, contact tracing); QA-passing; embed on next GeoJSON build (latest report date per zone). - **`grid3_healthsites`** — national health-facility count and density per zone from GRID3 COD v8.0; QA **warn** until CSV export drops the R row-index column (`row.names=FALSE` in `process.R`). <!-- whats-new:end -->
+
+### New on `main` (not yet in the archived GeoJSON snapshot)
+
+| Folder | Processed outputs | GeoJSON build |
+|----|----|----|
+| `insp_sitrep` | 12 × `insp_sitrep__*__daily.csv` (e.g. `new_suspected_cases`, `cumulative_confirmed_cases`, `contacts_seen`) | QA **pass** — run `tools.build_geojson` to merge (latest `date` per zone under `feature.properties.insp_sitrep.<metric>`) |
+| `grid3_healthsites` | `grid3_healthsites__healthsite_count__static.csv`, `grid3_healthsites__healthsite_density__static.csv` | QA **warn** (spurious `X` column from `write.csv`) — fix export, then rebuild |
+
+See `data/insp_sitrep/README.md` and `data/grid3_healthsites/README.md` for provenance and CSV contracts.
 
 **Embedded in the GeoJSON** — each per-zone vector output appears under `feature.properties.<dataset>.<metric>` (matrices are excluded; see below):
 
@@ -70,14 +79,20 @@ Second release on  22 May 2026
 
 **OSRM** (`data/osrm/`): pairwise **car** travel time (minutes) and road distance (km) between health zones via the [OSRM](http://project-osrm.org/) public API. Missing routes (e.g. Idjwi island) are stored as `NA` and may surface as QA **warn**; they are not embedded in the GeoJSON.
 
-**Not in build**: `ACLED_conflict` — province-grain placeholder, no QA-passing output yet.
+**INSP sitreps** (`data/insp_sitrep/`): complements `data/epi/` (WHO weekly external sitrep) with **daily** INSP-internal reporting for outbreak-affected zones only; values use `ND` where a metric was not reported on that date.
+
+**GRID3 health facilities** (`data/grid3_healthsites/`): MoH/partner facility master list (\~38k points), generally more complete than `healthsites_io` (OSM-only, filtered subset).
+
+**Not in build**: `ACLED_conflict` — province-grain placeholder, no QA-passing output yet. `grid3_healthsites` and `insp_sitrep` are in the repo but not in the current `build/drc_health_zones.geojson` until the steps in the table above.
 
 ## Past releases
 
 <!-- past-releases:start -->
+
 | Tag | Date | Summary | Download |
-|-----|------|---------|----------|
+|----|----|----|----|
 | build-2026-05-22-9694d10 | 2026-05-22 | First release on 22 May 2026 | [release](https://github.com/kraemer-lab/Ebola_DRC_2026/releases/tag/build-2026-05-22-9694d10) |
+
 <!-- past-releases:end -->
 
 # Repository layout
@@ -154,7 +169,7 @@ build/
 
 6.  Publishing a release (maintainer task). After a merge to `main` introduces changes worth a new public snapshot:
 
-    ```
+    ```         
     .venv/bin/python -m tools.release
     ```
 
