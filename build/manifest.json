@@ -1,8 +1,8 @@
 {
   "shapefile": "data/shapefiles/DRC_Health_zones.shp",
   "n_features": 519,
-  "built_at": "2026-05-22T14:56:59+00:00",
-  "commit": "8259588",
+  "built_at": "2026-05-22T18:27:39+00:00",
+  "commit": "493d506",
   "datasets": [
     {
       "folder": "ACLED_conflict",
@@ -285,7 +285,7 @@
           "metric": "contacts_seen",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 7,
+          "zones_with_values": 9,
           "long_csv": "build/long/insp_sitrep__contacts_seen.csv"
         },
         {
@@ -295,7 +295,7 @@
           "metric": "cumulative_confirmed_cases",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 8,
+          "zones_with_values": 11,
           "long_csv": "build/long/insp_sitrep__cumulative_confirmed_cases.csv"
         },
         {
@@ -305,7 +305,7 @@
           "metric": "cumulative_confirmed_deaths",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 8,
+          "zones_with_values": 11,
           "long_csv": "build/long/insp_sitrep__cumulative_confirmed_deaths.csv"
         },
         {
@@ -315,7 +315,7 @@
           "metric": "cumulative_contacts_isolated",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 7,
+          "zones_with_values": 9,
           "long_csv": "build/long/insp_sitrep__cumulative_contacts_isolated.csv"
         },
         {
@@ -325,7 +325,7 @@
           "metric": "cumulative_contacts_traced",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 7,
+          "zones_with_values": 9,
           "long_csv": "build/long/insp_sitrep__cumulative_contacts_traced.csv"
         },
         {
@@ -335,7 +335,7 @@
           "metric": "cumulative_suspected_cases",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 8,
+          "zones_with_values": 11,
           "long_csv": "build/long/insp_sitrep__cumulative_suspected_cases.csv"
         },
         {
@@ -345,7 +345,7 @@
           "metric": "cumulative_suspected_deaths",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 8,
+          "zones_with_values": 11,
           "long_csv": "build/long/insp_sitrep__cumulative_suspected_deaths.csv"
         },
         {
@@ -355,7 +355,7 @@
           "metric": "new_confirmed_cases",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 8,
+          "zones_with_values": 11,
           "long_csv": "build/long/insp_sitrep__new_confirmed_cases.csv"
         },
         {
@@ -365,7 +365,7 @@
           "metric": "new_contacts_isolated",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 7,
+          "zones_with_values": 9,
           "long_csv": "build/long/insp_sitrep__new_contacts_isolated.csv"
         },
         {
@@ -375,7 +375,7 @@
           "metric": "new_contacts_listed",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 7,
+          "zones_with_values": 9,
           "long_csv": "build/long/insp_sitrep__new_contacts_listed.csv"
         },
         {
@@ -385,7 +385,7 @@
           "metric": "new_suspected_cases",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 8,
+          "zones_with_values": 11,
           "long_csv": "build/long/insp_sitrep__new_suspected_cases.csv"
         },
         {
@@ -395,7 +395,7 @@
           "metric": "new_suspected_deaths",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 8,
+          "zones_with_values": 11,
           "long_csv": "build/long/insp_sitrep__new_suspected_deaths.csv"
         }
       ]
