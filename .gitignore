@@ -283,3 +283,4 @@ output/*
 !output/.gitkeep
 
 secrets/*
+data/shapefiles.zip
