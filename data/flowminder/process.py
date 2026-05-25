@@ -43,7 +43,7 @@ def _resolve(label: str) -> str:
 
 
 def rewrite(direction: str) -> Path:
-    src = RAW / f"mobilite_od_matrix_{direction}_mar2026.csv"
+    src = RAW / f"mobilite_od_matrix_{direction}_mar2026_flowminder.csv"
     dst = PROCESSED / f"flowminder__{direction}__static.matrix.csv"
     with src.open(newline="", encoding="utf-8-sig") as f_in:
         reader = csv.reader(f_in)
