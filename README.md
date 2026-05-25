@@ -155,14 +155,16 @@ build/
 
 2.  Make sure your processed filenames match the contract above. Add any name aliases your data uses to `data/aliases.csv`.
 
-3.  Run unit tests + QA locally:
+3.  Sync with main using `git merge origin`. This is important, as if anyone else has made changes (e.g. adding a dataset), their QA reports will reflect a different timestamp to what your current branch expects on main, resulting in a lot of conflicts after you run the QA tests in the next step.
+
+4.  Run unit tests + QA locally:
 
     ```         
     .venv/bin/python -m pytest tests/
     .venv/bin/python -m tools.qa
     ```
 
-4.  Rebuild the merged GeoJSON if you changed any vector data:
+5.  Rebuild the merged GeoJSON if you changed any vector data:
 
     ```         
     .venv/bin/python -m tools.build_geojson
@@ -170,9 +172,11 @@ build/
 
     On success, `build_geojson` also updates the **Last successful build** line (and `# Current build` date) in `README.md` from `build/manifest.json`. Pass `--skip-readme` to leave the README unchanged.
 
-5.  Open a PR. CI runs `pytest` + `tools.qa` and blocks merge on any failures. Merges to `main` are manual.
+6.  Open a PR. CI runs `pytest` + `tools.qa` and blocks merge on any failures.
+  
+7.  Merges to `main` are manual, and will be carried out by an admin or maintainer after they review your PR.
 
-6.  Publishing a release (maintainer task). After a merge to `main` introduces changes worth a new public snapshot:
+8.  Publishing a release (maintainer task). After a merge to `main` introduces changes worth a new public snapshot:
 
     ```         
     .venv/bin/python -m tools.release
