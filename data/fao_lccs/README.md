@@ -1,3 +1,5 @@
+**Language / Langue :** [English](README.md) · [Français](README_FR.md)
+
 # FAO LCCS urban fraction by health zone
 
 Health-zone-level **urban land-cover fraction** for the Democratic Republic of the Congo (DRC), derived from the Copernicus Climate Data Store (CDS) [**satellite-land-cover**](https://cds.climate.copernicus.eu/datasets/satellite-land-cover) product (UN FAO Land Cover Classification System, LCCS). Values represent the proportion of each zone classified as **urban** (LCCS class **190**).
