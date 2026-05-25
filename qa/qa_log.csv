@@ -1,4 +1,4 @@
 dataset,file,type,status,n_rows,n_zones_covered,reasons,checked_at
-flowminder,metadata.yaml,metadata,pass,,,,2026-05-25T14:19:20+00:00
-flowminder,flowminder__inflow__static.matrix.csv,matrix,pass,437,437,,2026-05-25T14:19:20+00:00
-flowminder,flowminder__outflow__static.matrix.csv,matrix,pass,437,437,,2026-05-25T14:19:20+00:00
+flowminder,metadata.yaml,metadata,pass,,,,2026-05-25T14:37:06+00:00
+flowminder,flowminder__inflow__static.matrix.csv,matrix,pass,437,437,,2026-05-25T14:37:06+00:00
+flowminder,flowminder__outflow__static.matrix.csv,matrix,pass,437,437,,2026-05-25T14:37:06+00:00
