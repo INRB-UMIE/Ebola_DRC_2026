@@ -12,7 +12,7 @@ import re
 import tarfile
 from pathlib import Path
 
-DEFAULT_GITHUB_REPO = "kraemer-lab/Ebola_DRC_2026"
+DEFAULT_GITHUB_REPO = "INRB-UMIE/Ebola_DRC_2026"
 
 
 def build_tag(date_or_iso: str, short_sha: str) -> str:
