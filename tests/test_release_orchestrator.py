@@ -1,8 +1,8 @@
-"""Integration tests for the tools.release orchestrator.
+"""Integration tests for the tools.release orchestrator (new flow).
 
-Stubs `gh` (via PATH manipulation) and `$EDITOR` (env var pointing at a
-script) and fakes `tools.build_geojson` via PYTHONPATH so the test exercises
-the real orchestrator end-to-end against a tmp directory.
+Stubs `gh` (PATH manipulation) and `$EDITOR` (env var). The orchestrator no
+longer rebuilds — the workflow does that before calling tools.release — so
+tests do not fake tools.build_geojson.
 """
 
 import json
@@ -18,8 +18,6 @@ import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
-
-# ---------- helpers ----------
 
 README_TEMPLATE = (
     "# Header\n\n"
@@ -43,8 +41,7 @@ def _make_stub(path: Path, body: str) -> None:
     path.chmod(path.stat().st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 
 
-def _seed_repo(tmp: Path, *, with_description: bool = True) -> None:
-    """Lay down the minimum file tree the orchestrator inspects."""
+def _seed_repo(tmp: Path) -> None:
     (tmp / "build").mkdir()
     (tmp / "build" / "long").mkdir()
     (tmp / "build" / "drc_health_zones.geojson").write_text(
@@ -53,17 +50,15 @@ def _seed_repo(tmp: Path, *, with_description: bool = True) -> None:
     (tmp / "build" / "manifest.json").write_text(json.dumps({
         "shapefile": "data/shapefiles/DRC_Health_zones.shp",
         "n_features": 0,
-        "built_at": "2026-05-20T12:00:00+00:00",
-        "commit": "abc1234",
+        "built_at": "2026-05-22T10:00:00+00:00",
+        "commit": "newsha1",
         "datasets": [],
     }))
-    if with_description:
-        (tmp / "build" / "DESCRIPTION.md").write_text("Previous summary line.\n\nMore detail.\n")
     (tmp / "qa").mkdir()
     (tmp / "qa" / "qa_log.csv").write_text("dataset,type,file,status\nfoo,vector,foo.csv,pass\n")
     (tmp / "qa" / "matrix_log.csv").write_text("dataset,file\n")
     (tmp / "README.md").write_text(README_TEMPLATE)
-    (tmp / ".gitignore").write_text("bin/\nfake_tools/\ngh.log\ndist/\n")
+    (tmp / ".gitignore").write_text("bin/\ngh.log\ndist/\n")
 
 
 def _init_git(tmp: Path) -> None:
@@ -76,15 +71,13 @@ def _init_git(tmp: Path) -> None:
     )
 
 
-def _install_stubs(tmp: Path, *, editor_body: str, gh_body: str | None = None) -> tuple[Path, Path]:
-    """Drop fake `gh` and `$EDITOR` scripts under tmp/bin. Returns (bin_dir, gh_log)."""
+def _install_stubs(tmp: Path, *, editor_body: str = "", gh_body: str | None = None) -> tuple[Path, Path]:
     bin_dir = tmp / "bin"
     bin_dir.mkdir()
     gh_log = tmp / "gh.log"
     default_gh = (
         f"""#!/usr/bin/env bash
 echo "$@" >> {gh_log}
-if [ "$1" = "release" ] && [ "$2" = "view" ]; then exit 1; fi
 if [ "$1" = "release" ] && [ "$2" = "create" ]; then
   echo "https://github.com/example/repo/releases/tag/$3"
 fi
@@ -92,50 +85,30 @@ exit 0
 """
     )
     _make_stub(bin_dir / "gh", gh_body or default_gh)
-    editor = bin_dir / "fake-editor"
-    _make_stub(editor, editor_body)
+    if editor_body:
+        _make_stub(bin_dir / "fake-editor", editor_body)
     return bin_dir, gh_log
 
 
-FAKE_BUILD_BOOTSTRAP = """
-import json, pathlib, sys, types
-fake = types.ModuleType('tools.build_geojson')
-def _main(built_at={built_at!r}, commit={commit!r}):
-    p = pathlib.Path('build/manifest.json')
-    m = json.loads(p.read_text())
-    m['built_at'] = built_at
-    m['commit'] = commit
-    p.write_text(json.dumps(m))
-    return 0
-fake.main = _main
-import tools  # real package
-sys.modules['tools.build_geojson'] = fake
-import tools.release as _r
-sys.exit(_r.main())
-"""
-
-
-def _run_release(
-    tmp: Path,
-    *,
-    bin_dir: Path,
-    editor: Path,
-    fake_build: bool = True,
-    built_at: str = "2026-05-22T10:00:00+00:00",
-    commit: str = "newsha1",
-) -> subprocess.CompletedProcess:
+def _env(tmp: Path, bin_dir: Path, *, editor: Path | None = None) -> dict:
     env = {
         **os.environ,
         "PATH": f"{bin_dir}:{os.environ.get('PATH', '')}",
-        "EDITOR": str(editor),
         "PYTHONPATH": str(REPO_ROOT),
     }
-    if fake_build:
-        bootstrap = FAKE_BUILD_BOOTSTRAP.format(built_at=built_at, commit=commit)
-        cmd = [sys.executable, "-c", bootstrap]
-    else:
-        cmd = [sys.executable, "-m", "tools.release"]
-    return subprocess.run(cmd, cwd=tmp, capture_output=True, text=True, env=env)
+    if editor is not None:
+        env["EDITOR"] = str(editor)
+    return env
+
+
+def _run(tmp: Path, env: dict, *extra_args: str) -> subprocess.CompletedProcess:
+    return subprocess.run(
+        [sys.executable, "-m", "tools.release", *extra_args],
+        cwd=tmp,
+        capture_output=True,
+        text=True,
+        env=env,
+    )
 
 
 # ---------- preflight ----------
@@ -143,14 +116,8 @@ def _run_release(
 def test_preflight_fails_when_qa_log_missing(tmp_path):
     _seed_repo(tmp_path)
     (tmp_path / "qa" / "qa_log.csv").unlink()
-
-    result = subprocess.run(
-        [sys.executable, "-m", "tools.release"],
-        cwd=tmp_path,
-        capture_output=True,
-        text=True,
-        env={**os.environ, "PYTHONPATH": str(REPO_ROOT)},
-    )
+    bin_dir, _ = _install_stubs(tmp_path)
+    result = _run(tmp_path, _env(tmp_path, bin_dir))
     assert result.returncode != 0
     assert "qa" in result.stderr.lower()
 
@@ -160,179 +127,108 @@ def test_preflight_fails_when_qa_log_has_failures(tmp_path):
     (tmp_path / "qa" / "qa_log.csv").write_text(
         "dataset,type,file,status\nfoo,vector,foo.csv,fail\n"
     )
-
-    result = subprocess.run(
-        [sys.executable, "-m", "tools.release"],
-        cwd=tmp_path,
-        capture_output=True,
-        text=True,
-        env={**os.environ, "PYTHONPATH": str(REPO_ROOT)},
-    )
+    bin_dir, _ = _install_stubs(tmp_path)
+    result = _run(tmp_path, _env(tmp_path, bin_dir))
     assert result.returncode != 0
     assert "fail" in result.stderr.lower()
 
 
 def test_preflight_fails_when_gh_missing(tmp_path):
     _seed_repo(tmp_path)
-
     result = subprocess.run(
         [sys.executable, "-m", "tools.release"],
         cwd=tmp_path,
         capture_output=True,
         text=True,
-        env={
-            "PATH": "/nonexistent-bin",
-            "PYTHONPATH": str(REPO_ROOT),
-            "HOME": str(tmp_path),
-        },
+        env={"PATH": "/nonexistent-bin", "PYTHONPATH": str(REPO_ROOT), "HOME": str(tmp_path)},
     )
     assert result.returncode != 0
     assert "gh" in result.stderr.lower()
 
 
-def test_preflight_accepts_qa_reports_dirty(tmp_path):
-    """qa/reports/*.md are legitimate QA outputs — must not trigger 'unrelated dirty paths'."""
-    _seed_repo(tmp_path)
-    _init_git(tmp_path)
-    # After init, dirty up a qa/reports/*.md file (didn't exist before init)
-    (tmp_path / "qa" / "reports").mkdir(exist_ok=True)
-    (tmp_path / "qa" / "reports" / "foo.md").write_text("# foo report\n")
-
-    editor_body = (
-        "#!/usr/bin/env bash\n"
-        "cat > \"$1\" <<EOF\n"
-        "Smoke run.\n"
-        "EOF\n"
-    )
-    bin_dir, _ = _install_stubs(tmp_path, editor_body=editor_body)
-
-    result = _run_release(
-        tmp_path,
-        bin_dir=bin_dir,
-        editor=bin_dir / "fake-editor",
-    )
-    # We don't care about the full result here, only that preflight didn't fire
-    # the "unrelated dirty paths" check.
-    assert "unrelated uncommitted changes" not in result.stderr
-
-
 def test_preflight_fails_on_unrelated_dirty_paths(tmp_path):
     _seed_repo(tmp_path)
     _init_git(tmp_path)
-    bin_dir, _ = _install_stubs(tmp_path, editor_body="#!/usr/bin/env bash\necho x > \"$1\"\n")
+    bin_dir, _ = _install_stubs(tmp_path)
     (tmp_path / "unrelated.txt").write_text("dirty")
-
-    result = subprocess.run(
-        [sys.executable, "-m", "tools.release"],
-        cwd=tmp_path,
-        capture_output=True,
-        text=True,
-        env={
-            **os.environ,
-            "PATH": f"{bin_dir}:{os.environ.get('PATH', '')}",
-            "PYTHONPATH": str(REPO_ROOT),
-        },
-    )
+    result = _run(tmp_path, _env(tmp_path, bin_dir))
     assert result.returncode != 0
     assert "unrelated" in result.stderr.lower() or "dirty" in result.stderr.lower()
 
 
-# ---------- happy path ----------
+# ---------- happy paths ----------
 
-def test_full_release_end_to_end(tmp_path):
-    """One pass through preflight → archive → rebuild → editor → README rewrite."""
+def test_interactive_editor_release(tmp_path):
+    """$EDITOR mode (no flags): full pass publishes current build."""
     _seed_repo(tmp_path)
     _init_git(tmp_path)
     editor_body = (
         "#!/usr/bin/env bash\n"
         "cat > \"$1\" <<EOF\n"
-        "# this comment must be stripped\n"
-        "Updated ACLED and added new Flowminder month.\n"
-        "\n"
-        "Motivated by sitrep refresh.\n"
+        "# stripped comment\n"
+        "Updated cross-border POE counts.\n"
         "EOF\n"
     )
     bin_dir, gh_log = _install_stubs(tmp_path, editor_body=editor_body)
-    result = _run_release(
-        tmp_path,
-        bin_dir=bin_dir,
-        editor=bin_dir / "fake-editor",
-    )
+    result = _run(tmp_path, _env(tmp_path, bin_dir, editor=bin_dir / "fake-editor"))
     assert result.returncode == 0, result.stderr
 
-    # gh was called with the right tag (derived from the OLD manifest).
-    log = gh_log.read_text()
-    assert "release view build-2026-05-20-abc1234" in log
-    assert "release create build-2026-05-20-abc1234" in log
-
-    # Tarball exists and contains the expected members.
-    tarballs = list((tmp_path / "dist").glob("build-2026-05-20-abc1234.tar.gz"))
-    assert tarballs, "expected one tarball under dist/"
-    with tarfile.open(tarballs[0], "r:gz") as tf:
-        names = set(tf.getnames())
+    expected_tag = "build-2026-05-22-newsha1"
+    archive = tmp_path / "dist" / f"{expected_tag}.tar.gz"
+    assert archive.exists()
+    with tarfile.open(archive) as tf:
+        names = tf.getnames()
     assert "build/drc_health_zones.geojson" in names
     assert "build/manifest.json" in names
-    assert "build/DESCRIPTION.md" in names
     assert "qa/qa_log.csv" in names
-    assert "qa/matrix_log.csv" in names
 
-    # New DESCRIPTION.md reflects the editor input minus the comment.
-    desc = (tmp_path / "build" / "DESCRIPTION.md").read_text()
-    assert desc.startswith("Updated ACLED")
-    assert "# this comment" not in desc
+    gh_invocations = gh_log.read_text()
+    assert f"release create {expected_tag}" in gh_invocations
 
-    # README rewritten: new current-build heading + commit + whats-new + past row.
     readme = (tmp_path / "README.md").read_text()
-    assert "# Current build (2026-05-22)" in readme
-    assert "newsha1" in readme
-    assert "Updated ACLED and added new Flowminder month." in readme
-    assert "old description" not in readme
-    assert "build-2026-05-20-abc1234" in readme
-    assert "Previous summary line." in readme
+    assert expected_tag in readme
+    assert "Updated cross-border POE counts." in readme
+
+    assert not (tmp_path / "build" / "DESCRIPTION.md").exists()
 
 
-def test_editor_refuses_empty_description(tmp_path):
+def test_description_file_release(tmp_path):
+    """--description-file path: read description from a file, do not open $EDITOR."""
     _seed_repo(tmp_path)
     _init_git(tmp_path)
-    editor_body = "#!/usr/bin/env bash\necho '# only comments' > \"$1\"\n"
-    bin_dir, _ = _install_stubs(tmp_path, editor_body=editor_body)
-    result = _run_release(
+    bin_dir, gh_log = _install_stubs(tmp_path)
+    desc = tmp_path / "desc.md"
+    desc.write_text("Refreshed Flowminder month.\n")
+    result = _run(
         tmp_path,
-        bin_dir=bin_dir,
-        editor=bin_dir / "fake-editor",
-    )
-    assert result.returncode != 0
-    assert "description" in result.stderr.lower()
-
-
-def test_first_ever_release_skips_archive(tmp_path):
-    """When build/DESCRIPTION.md is absent, archive step is skipped (no gh call)."""
-    _seed_repo(tmp_path, with_description=False)
-    _init_git(tmp_path)
-    editor_body = (
-        "#!/usr/bin/env bash\n"
-        "cat > \"$1\" <<EOF\n"
-        "Inaugural described build.\n"
-        "EOF\n"
-    )
-    bin_dir, gh_log = _install_stubs(tmp_path, editor_body=editor_body)
-    result = _run_release(
-        tmp_path,
-        bin_dir=bin_dir,
-        editor=bin_dir / "fake-editor",
+        _env(tmp_path, bin_dir),
+        "--description-file", str(desc), "--non-interactive",
     )
     assert result.returncode == 0, result.stderr
-
-    # gh should NOT have been called for `release view` or `release create`.
-    log = gh_log.read_text() if gh_log.exists() else ""
-    assert "release view" not in log
-    assert "release create" not in log
-
-    # DESCRIPTION.md was written for the new build.
-    desc = (tmp_path / "build" / "DESCRIPTION.md").read_text()
-    assert desc.startswith("Inaugural described build")
-
-    # README rewritten with the new current build, but no past-release row added.
     readme = (tmp_path / "README.md").read_text()
-    assert "# Current build (2026-05-22)" in readme
-    assert "Inaugural described build" in readme
+    assert "Refreshed Flowminder month." in readme
+    assert "build-2026-05-22-newsha1" in readme
+
+
+def test_non_interactive_without_description_file_fails(tmp_path):
+    _seed_repo(tmp_path)
+    _init_git(tmp_path)
+    bin_dir, _ = _install_stubs(tmp_path)
+    result = _run(tmp_path, _env(tmp_path, bin_dir), "--non-interactive")
+    assert result.returncode != 0
+    assert "description-file" in result.stderr.lower() or "non-interactive" in result.stderr.lower()
+
+
+def test_description_file_empty_fails(tmp_path):
+    _seed_repo(tmp_path)
+    _init_git(tmp_path)
+    bin_dir, _ = _install_stubs(tmp_path)
+    desc = tmp_path / "desc.md"
+    desc.write_text("   \n\n")
+    result = _run(
+        tmp_path,
+        _env(tmp_path, bin_dir),
+        "--description-file", str(desc), "--non-interactive",
+    )
+    assert result.returncode != 0
+    assert "empty" in result.stderr.lower() or "description" in result.stderr.lower()
