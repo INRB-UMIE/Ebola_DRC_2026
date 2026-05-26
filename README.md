@@ -6,7 +6,7 @@ Data for the 2026 Bundibugyo Ebolavirus (BDBV) outbreak.
 
 This work is led by the Institut National de Recherche Biomédicale (INRB) Kinshasa/One Health Institute for Africa (INOHA) Kinshasa (Dav Ebengo, Placide Mbala-Kingebeni and Tania Bishola), and the Institut National de Santé Publique (INSP) (Pierre Akilimali, Adelard Lofungola) in collaboration with partners across the University of Oxford and Northeastern University; please contact [dav.ebengo\@umie-inrb.org](mailto:dav.ebengo@umie-inrb.org) or [pierre.akilimali\@insp.cd](mailto:pierre.akilimali@insp.cd) for further information.
 
-Last successful build: **25 May 2026, 11:12:07 (UTC)** — `build/` on `main` at commit [`913be1e`](https://github.com/kraemer-lab/Ebola_DRC_2026/commit/913be1e0fd0e42aa7018c0bd322fa7eb8f729533) (data snapshot [`913be1e`](https://github.com/kraemer-lab/Ebola_DRC_2026/commit/913be1e), see `build/manifest.json`).
+Last successful build: **26 May 2026, 09:47:13 (UTC)** — `build/` on `main` at commit [`ad7f46c`](https://github.com/kraemer-lab/Ebola_DRC_2026/commit/ad7f46cac54a35f219d4c7939a5e4f12862dcc1f) (data snapshot [`ad7f46c`](https://github.com/kraemer-lab/Ebola_DRC_2026/commit/ad7f46c), see `build/manifest.json`).
 
 # Data sources
 
@@ -28,7 +28,7 @@ For the latest BDBV genomic data, please visit [Pathoplexus](https://pathoplexus
 
 We are tracking pending data sources over on the [issues tab](https://github.com/kraemer-lab/Ebola_DRC_2026/issues). If you want to request a specific publicly available dataset, raise an issue (although raising an issue does not guarantee that we will incorporate a dataset).
 
-# Current build (2026-05-25)
+# Current build (2026-05-26)
 
 Snapshot of `build/drc_health_zones.geojson` (519 zones, **25** embedded vector layers, \~26 MB) and the matrix catalogue. **25 May 2026, 11:12:07 (UTC)** — `build/` on `main` at commit [`913be1e`](https://github.com/kraemer-lab/Ebola_DRC_2026/commit/913be1e0fd0e42aa7018c0bd322fa7eb8f729533) (data snapshot [`913be1e`](https://github.com/kraemer-lab/Ebola_DRC_2026/commit/913be1e), see `build/manifest.json`). Re-run `python -m tools.build_geojson` after pulling to regenerate locally; `build/manifest.json` carries the same information in machine-readable form.
 

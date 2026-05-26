@@ -1,8 +1,8 @@
 {
   "shapefile": "data/shapefiles/DRC_Health_zones.shp",
   "n_features": 519,
-  "built_at": "2026-05-25T10:21:09+00:00",
-  "commit": "a5a75da",
+  "built_at": "2026-05-26T09:47:13+00:00",
+  "commit": "ad7f46c",
   "datasets": [
     {
       "folder": "ACLED_conflict",
@@ -271,9 +271,9 @@
     {
       "folder": "insp_sitrep",
       "source": "Institut National de Sant\u00e9 Publique (INSP) Situation Reports \u2014 SitRep MVE series (2026 Bundibugyo Ebolavirus outbreak)",
-      "citation": "Institut National de Sant\u00e9 Publique (INSP), Democratic Republic of the Congo. Situation reports on the 2026 Bundibugyo Ebolavirus outbreak (SitRep MVE 001\u2013006, 2026). Health-zone geometry: DRC_Health_zones.shp (see data/shapefiles/).",
+      "citation": "Institut National de Sant\u00e9 Publique (INSP), Democratic Republic of the Congo. Situation reports on the 2026 Bundibugyo Ebolavirus outbreak (SitRep MVE 001\u2013010, 2026; report 003 not committed). Health-zone geometry: DRC_Health_zones.shp (see data/shapefiles/).",
       "source_url": "https://insp.cd/",
-      "retrieved_on": "2026-05-23",
+      "retrieved_on": "2026-05-24",
       "license": "INSP outbreak sitreps; reuse with attribution to INSP and citation of the specific report number and date. Confirm distribution terms with INSP before external republication.",
       "contact": "pierre.akilimali@insp.cd",
       "status": "active",
@@ -295,7 +295,7 @@
           "metric": "cumulative_confirmed_cases",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 12,
+          "zones_with_values": 14,
           "long_csv": "build/long/insp_sitrep__cumulative_confirmed_cases.csv"
         },
         {
@@ -325,7 +325,7 @@
           "metric": "cumulative_contacts_traced",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 10,
+          "zones_with_values": 15,
           "long_csv": "build/long/insp_sitrep__cumulative_contacts_traced.csv"
         },
         {
@@ -349,13 +349,23 @@
           "long_csv": "build/long/insp_sitrep__cumulative_suspected_deaths.csv"
         },
         {
+          "file": "insp_sitrep__hosp_escaped__daily.csv",
+          "type": "vector",
+          "dataset_token": "insp_sitrep",
+          "metric": "hosp_escaped",
+          "resolution": "daily",
+          "in_geojson": true,
+          "zones_with_values": 6,
+          "long_csv": "build/long/insp_sitrep__hosp_escaped.csv"
+        },
+        {
           "file": "insp_sitrep__hospitalised__daily.csv",
           "type": "vector",
           "dataset_token": "insp_sitrep",
           "metric": "hospitalised",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 5,
+          "zones_with_values": 6,
           "long_csv": "build/long/insp_sitrep__hospitalised.csv"
         },
         {
@@ -365,7 +375,7 @@
           "metric": "in_bed_previous_day",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 5,
+          "zones_with_values": 6,
           "long_csv": "build/long/insp_sitrep__in_bed_previous_day.csv"
         },
         {
@@ -375,7 +385,7 @@
           "metric": "new_confirmed_cases",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 12,
+          "zones_with_values": 14,
           "long_csv": "build/long/insp_sitrep__new_confirmed_cases.csv"
         },
         {
@@ -395,7 +405,7 @@
           "metric": "new_contacts_listed",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 10,
+          "zones_with_values": 15,
           "long_csv": "build/long/insp_sitrep__new_contacts_listed.csv"
         },
         {
@@ -405,7 +415,7 @@
           "metric": "new_hosp_admissions",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 5,
+          "zones_with_values": 6,
           "long_csv": "build/long/insp_sitrep__new_hosp_admissions.csv"
         },
         {
@@ -415,7 +425,7 @@
           "metric": "new_hosp_detainees",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 5,
+          "zones_with_values": 6,
           "long_csv": "build/long/insp_sitrep__new_hosp_detainees.csv"
         },
         {
@@ -425,7 +435,7 @@
           "metric": "new_hosp_other",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 5,
+          "zones_with_values": 6,
           "long_csv": "build/long/insp_sitrep__new_hosp_other.csv"
         },
         {
@@ -435,7 +445,7 @@
           "metric": "new_suspected_cases",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 12,
+          "zones_with_values": 15,
           "long_csv": "build/long/insp_sitrep__new_suspected_cases.csv"
         },
         {
@@ -445,7 +455,7 @@
           "metric": "new_suspected_deaths",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 12,
+          "zones_with_values": 15,
           "long_csv": "build/long/insp_sitrep__new_suspected_deaths.csv"
         },
         {
