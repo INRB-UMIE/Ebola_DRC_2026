@@ -1,3 +1,2 @@
-Second release on  22 May 2026
-- only for testing
-- no change from previous release
+INSP Sitrep data through report 010
+First release officially hosted by INRB
