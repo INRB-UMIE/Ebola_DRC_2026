@@ -1,6 +1,6 @@
 # QA report: insp_sitrep
 
-_Checked: 2026-05-27T14:33:33+00:00_
+_Checked: 2026-05-27T22:00:42+00:00_
 
 **Status counts:** {'pass': 29}
 
@@ -12,12 +12,12 @@ _Checked: 2026-05-27T14:33:33+00:00_
 - resolution: daily
 
 ## `insp_sitrep__cumulative_confirmed_cases__daily.csv` (vector) — **pass**
-- rows: 75
-- zones covered: 14 / 519
+- rows: 109
+- zones covered: 20 / 519
 - resolution: daily
 
 ## `insp_sitrep__cumulative_confirmed_deaths__daily.csv` (vector) — **pass**
-- rows: 73
+- rows: 93
 - zones covered: 12 / 519
 - resolution: daily
 
@@ -27,18 +27,18 @@ _Checked: 2026-05-27T14:33:33+00:00_
 - resolution: daily
 
 ## `insp_sitrep__cumulative_contacts_traced__daily.csv` (vector) — **pass**
-- rows: 53
+- rows: 79
 - zones covered: 15 / 519
 - resolution: daily
 
 ## `insp_sitrep__cumulative_suspected_cases__daily.csv` (vector) — **pass**
-- rows: 73
-- zones covered: 12 / 519
+- rows: 107
+- zones covered: 20 / 519
 - resolution: daily
 
 ## `insp_sitrep__cumulative_suspected_deaths__daily.csv` (vector) — **pass**
-- rows: 72
-- zones covered: 12 / 519
+- rows: 107
+- zones covered: 20 / 519
 - resolution: daily
 
 ## `insp_sitrep__hosp_escaped__daily.csv` (vector) — **pass**
@@ -77,8 +77,8 @@ _Checked: 2026-05-27T14:33:33+00:00_
 - resolution: daily
 
 ## `insp_sitrep__new_confirmed_cases__daily.csv` (vector) — **pass**
-- rows: 75
-- zones covered: 14 / 519
+- rows: 110
+- zones covered: 20 / 519
 - resolution: daily
 
 ## `insp_sitrep__new_contacts_isolated__daily.csv` (vector) — **pass**
@@ -87,7 +87,7 @@ _Checked: 2026-05-27T14:33:33+00:00_
 - resolution: daily
 
 ## `insp_sitrep__new_contacts_listed__daily.csv` (vector) — **pass**
-- rows: 53
+- rows: 79
 - zones covered: 15 / 519
 - resolution: daily
 
@@ -107,13 +107,13 @@ _Checked: 2026-05-27T14:33:33+00:00_
 - resolution: daily
 
 ## `insp_sitrep__new_suspected_cases__daily.csv` (vector) — **pass**
-- rows: 76
-- zones covered: 15 / 519
+- rows: 111
+- zones covered: 21 / 519
 - resolution: daily
 
 ## `insp_sitrep__new_suspected_deaths__daily.csv` (vector) — **pass**
-- rows: 76
-- zones covered: 15 / 519
+- rows: 111
+- zones covered: 21 / 519
 - resolution: daily
 
 ## `insp_sitrep__total_poe_hand_washing__daily.csv` (vector) — **pass**

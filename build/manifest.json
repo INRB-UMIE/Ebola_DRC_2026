@@ -1,8 +1,8 @@
 {
   "shapefile": "data/shapefiles/DRC_Health_zones.shp",
   "n_features": 519,
-  "built_at": "2026-05-27T14:33:35+00:00",
-  "commit": "059661a",
+  "built_at": "2026-05-27T22:00:43+00:00",
+  "commit": "e40bc9e",
   "datasets": [
     {
       "folder": "ACLED_conflict",
@@ -295,7 +295,7 @@
           "metric": "cumulative_confirmed_cases",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 14,
+          "zones_with_values": 20,
           "long_csv": "build/long/insp_sitrep__cumulative_confirmed_cases.csv"
         },
         {
@@ -335,7 +335,7 @@
           "metric": "cumulative_suspected_cases",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 12,
+          "zones_with_values": 20,
           "long_csv": "build/long/insp_sitrep__cumulative_suspected_cases.csv"
         },
         {
@@ -345,7 +345,7 @@
           "metric": "cumulative_suspected_deaths",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 12,
+          "zones_with_values": 20,
           "long_csv": "build/long/insp_sitrep__cumulative_suspected_deaths.csv"
         },
         {
@@ -425,7 +425,7 @@
           "metric": "new_confirmed_cases",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 14,
+          "zones_with_values": 20,
           "long_csv": "build/long/insp_sitrep__new_confirmed_cases.csv"
         },
         {
@@ -485,7 +485,7 @@
           "metric": "new_suspected_cases",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 15,
+          "zones_with_values": 21,
           "long_csv": "build/long/insp_sitrep__new_suspected_cases.csv"
         },
         {
@@ -495,7 +495,7 @@
           "metric": "new_suspected_deaths",
           "resolution": "daily",
           "in_geojson": true,
-          "zones_with_values": 15,
+          "zones_with_values": 21,
           "long_csv": "build/long/insp_sitrep__new_suspected_deaths.csv"
         },
         {
@@ -609,6 +609,38 @@
           "in_geojson": true,
           "zones_with_values": 23,
           "long_csv": "build/long/refugee_sites__sites.csv"
+        }
+      ]
+    },
+    {
+      "folder": "testing_capacity",
+      "source": "Africa CDC \u2014 Plan de d\u00e9centralisation des tests Ebola, RDC",
+      "citation": "Africa Centres for Disease Control and Prevention (Africa CDC). Plan de d\u00e9centralisation des tests de laboratoire Ebola en R\u00e9publique d\u00e9mocratique du Congo.",
+      "source_url": "https://africacdc.org/",
+      "retrieved_on": "2026-05-26",
+      "license": "Use with attribution to Africa CDC and INRB/INSP as specified in the source plan; confirm redistribution terms with the data owner.",
+      "contact": "info@africacdc.org",
+      "status": "active",
+      "outputs": [
+        {
+          "file": "testing_capacity__pcr_machines__static.csv",
+          "type": "vector",
+          "dataset_token": "testing_capacity",
+          "metric": "pcr_machines",
+          "resolution": "static",
+          "in_geojson": true,
+          "zones_with_values": 19,
+          "long_csv": "build/long/testing_capacity__pcr_machines.csv"
+        },
+        {
+          "file": "testing_capacity__pcr_tests__static.csv",
+          "type": "vector",
+          "dataset_token": "testing_capacity",
+          "metric": "pcr_tests",
+          "resolution": "static",
+          "in_geojson": true,
+          "zones_with_values": 19,
+          "long_csv": "build/long/testing_capacity__pcr_tests.csv"
         }
       ]
     },
