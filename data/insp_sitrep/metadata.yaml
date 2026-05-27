@@ -1,21 +1,19 @@
 source: "Institut National de Santé Publique (INSP) Situation Reports — SitRep MVE series (2026 Bundibugyo Ebolavirus outbreak)"
-citation: "Institut National de Santé Publique (INSP), Democratic Republic of the Congo. Situation reports on the 2026 Bundibugyo Ebolavirus outbreak (SitRep MVE 001–010, 2026; report 003 not committed). Health-zone geometry: DRC_Health_zones.shp (see data/shapefiles/)."
+citation: "Institut National de Santé Publique (INSP), Democratic Republic of the Congo. Situation reports on the 2026 Bundibugyo Ebolavirus outbreak (SitRep MVE 001, 002, 004–012, 2026; report 003 not committed). Health-zone geometry: DRC_Health_zones.shp (see data/shapefiles/)."
 source_url: "https://insp.cd/"
-retrieved_on: "2026-05-24"
+retrieved_on: "2026-05-27"
 license: "INSP outbreak sitreps; reuse with attribution to INSP and citation of the specific report number and date. Confirm distribution terms with INSP before external republication."
 contact: "pierre.akilimali@insp.cd"
 runtime: none
-period: "2026-05-14 to 2026-05-24"
+period: "2026-05-14 to 2026-05-26 (processed extracts; see README)"
 notes: |
-  Daily health-zone indicators manually extracted from INSP SitRep MVE PDFs in raw/
-  (SitRep_MVE_001, 002, 004–010:2026; report 003 not committed).
-  Twenty-four long-format vectors in processed/: insp_sitrep__<metric>__daily.csv
-  with columns nom, date, and one metric (case, death, contact-tracing,
-  hospitalisation, or zone-level total_poe_* counts). Cell value ND = not reported
-  in that sitrep. Outbreak-affected zones only (21 canonical noms in current files,
-  e.g. Adi, Aru, Bambu, Bunia, Butembo, Goma, Kalunguta, Karisimbi, Katwa, Kilo,
-  Komanda, Kyondo, Mahagi, Mangala, Miti-Murhesa, Mongbalu, Nizi, Nyakunde, Oicha,
-  Rwampara, Tchomia). Zone names may need data/aliases.csv (Mongbwalu→Mongbalu,
-  Nyankunde→Nyakunde, Karissibi→Karisimbi). Complements data/epi/ (WHO weekly
-  external sitreps). process.R normalises nom to canonical shapefile names; it does
-  not parse PDFs. See README.md for the full file list, CSV contract, and limitations.
+  Manually extracted from INSP SitRep MVE PDFs in raw/ (SitRep_MVE_001-2026.pdf
+  through SitRep_MVE_011-2026.pdf and SitRep_MVE_012_2026.pdf; 003 not committed).
+  Twenty-eight processed vectors: insp_sitrep__<metric>__daily.csv with nom, date,
+  and one value column. Outbreak-zone tables (cases, deaths, contacts, hospitalisation
+  from 2026-05-20, PoE from 2026-05-20) cover 21 canonical zones only. Four
+  national_cumulative_* files repeat republic-wide totals on all 519 zones (ISO
+  dates; currently 2026-05-26). All processed files use ISO dates in date. ND =
+  not reported.
+  Complements data/epi/.
+  process.R normalises nom to canonical names; does not parse PDFs.

@@ -1,8 +1,8 @@
 {
   "shapefile": "data/shapefiles/DRC_Health_zones.shp",
   "n_features": 519,
-  "built_at": "2026-05-26T15:53:57+00:00",
-  "commit": "0973277",
+  "built_at": "2026-05-27T14:33:35+00:00",
+  "commit": "059661a",
   "datasets": [
     {
       "folder": "ACLED_conflict",
@@ -271,9 +271,9 @@
     {
       "folder": "insp_sitrep",
       "source": "Institut National de Sant\u00e9 Publique (INSP) Situation Reports \u2014 SitRep MVE series (2026 Bundibugyo Ebolavirus outbreak)",
-      "citation": "Institut National de Sant\u00e9 Publique (INSP), Democratic Republic of the Congo. Situation reports on the 2026 Bundibugyo Ebolavirus outbreak (SitRep MVE 001\u2013010, 2026; report 003 not committed). Health-zone geometry: DRC_Health_zones.shp (see data/shapefiles/).",
+      "citation": "Institut National de Sant\u00e9 Publique (INSP), Democratic Republic of the Congo. Situation reports on the 2026 Bundibugyo Ebolavirus outbreak (SitRep MVE 001, 002, 004\u2013012, 2026; report 003 not committed). Health-zone geometry: DRC_Health_zones.shp (see data/shapefiles/).",
       "source_url": "https://insp.cd/",
-      "retrieved_on": "2026-05-24",
+      "retrieved_on": "2026-05-27",
       "license": "INSP outbreak sitreps; reuse with attribution to INSP and citation of the specific report number and date. Confirm distribution terms with INSP before external republication.",
       "contact": "pierre.akilimali@insp.cd",
       "status": "active",
@@ -377,6 +377,46 @@
           "in_geojson": true,
           "zones_with_values": 6,
           "long_csv": "build/long/insp_sitrep__in_bed_previous_day.csv"
+        },
+        {
+          "file": "insp_sitrep__national_cumulative_confirmed_cases__daily.csv",
+          "type": "vector",
+          "dataset_token": "insp_sitrep",
+          "metric": "national_cumulative_confirmed_cases",
+          "resolution": "daily",
+          "in_geojson": true,
+          "zones_with_values": 519,
+          "long_csv": "build/long/insp_sitrep__national_cumulative_confirmed_cases.csv"
+        },
+        {
+          "file": "insp_sitrep__national_cumulative_confirmed_deaths__daily.csv",
+          "type": "vector",
+          "dataset_token": "insp_sitrep",
+          "metric": "national_cumulative_confirmed_deaths",
+          "resolution": "daily",
+          "in_geojson": true,
+          "zones_with_values": 519,
+          "long_csv": "build/long/insp_sitrep__national_cumulative_confirmed_deaths.csv"
+        },
+        {
+          "file": "insp_sitrep__national_cumulative_suspected_cases__daily.csv",
+          "type": "vector",
+          "dataset_token": "insp_sitrep",
+          "metric": "national_cumulative_suspected_cases",
+          "resolution": "daily",
+          "in_geojson": true,
+          "zones_with_values": 519,
+          "long_csv": "build/long/insp_sitrep__national_cumulative_suspected_cases.csv"
+        },
+        {
+          "file": "insp_sitrep__national_cumulative_suspected_deaths__daily.csv",
+          "type": "vector",
+          "dataset_token": "insp_sitrep",
+          "metric": "national_cumulative_suspected_deaths",
+          "resolution": "daily",
+          "in_geojson": true,
+          "zones_with_values": 519,
+          "long_csv": "build/long/insp_sitrep__national_cumulative_suspected_deaths.csv"
         },
         {
           "file": "insp_sitrep__new_confirmed_cases__daily.csv",

@@ -1,60 +1,64 @@
 dataset,file,type,status,n_rows,n_zones_covered,reasons,checked_at
-ACLED_conflict,metadata.yaml,metadata,pass,,,,2026-05-26T09:47:00+00:00
-ACLED_conflict,processed/,structure,warn,,,no processed/ directory,2026-05-26T09:47:00+00:00
-IDP,metadata.yaml,metadata,pass,,,,2026-05-26T09:47:00+00:00
-IDP,idp__individuals__monthly.matrix.csv,matrix,pass,4004,44,,2026-05-26T09:47:00+00:00
-IDP,idp__individuals__static.matrix.csv,matrix,pass,44,44,,2026-05-26T09:47:00+00:00
-IDP,idp__individuals__weekly.matrix.csv,matrix,pass,12584,44,,2026-05-26T09:47:00+00:00
-ccvi,metadata.yaml,metadata,pass,,,,2026-05-26T09:47:00+00:00
-ccvi,ccvi__socioeconomic_deprivation__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-26T09:47:00+00:00
-ccvi,ccvi__socioeconomic_inequality__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-26T09:47:00+00:00
-cross-border-movements,metadata.yaml,metadata,pass,,,,2026-05-26T09:47:00+00:00
-cross-border-movements,cross_border__poe_passengers__static.csv,vector,pass,7,7,,2026-05-26T09:47:00+00:00
-epi,metadata.yaml,metadata,pass,,,,2026-05-26T09:47:00+00:00
-epi,epi__cases__weekly.csv,vector,pass,7,7,,2026-05-26T09:47:00+00:00
-fao_lccs,metadata.yaml,metadata,pass,,,,2026-05-26T09:47:00+00:00
-fao_lccs,fao_lccs__urban_fraction__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-26T09:47:00+00:00
-flowminder,metadata.yaml,metadata,pass,,,,2026-05-26T09:47:00+00:00
-flowminder,flowminder__inflow__static.matrix.csv,matrix,pass,437,437,,2026-05-26T09:47:00+00:00
-flowminder,flowminder__outflow__static.matrix.csv,matrix,pass,437,437,,2026-05-26T09:47:00+00:00
-gdp_pc,metadata.yaml,metadata,pass,,,,2026-05-26T09:47:00+00:00
-gdp_pc,gdp_pc__gdp_pc__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-26T09:47:00+00:00
-grid3_healthsites,metadata.yaml,metadata,pass,,,,2026-05-26T09:47:00+00:00
-grid3_healthsites,grid3_healthsites__healthsite_count__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-26T09:47:00+00:00
-grid3_healthsites,grid3_healthsites__healthsite_density__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-26T09:47:00+00:00
-healthsites_io,metadata.yaml,metadata,pass,,,,2026-05-26T09:47:00+00:00
-healthsites_io,healthsites_io__healthsite_count__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-26T09:47:00+00:00
-healthsites_io,healthsites_io__healthsite_density__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-26T09:47:00+00:00
-insp_sitrep,metadata.yaml,metadata,pass,,,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__contacts_seen__daily.csv,vector,pass,46,10,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__cumulative_confirmed_cases__daily.csv,vector,pass,75,14,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__cumulative_confirmed_deaths__daily.csv,vector,pass,73,12,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__cumulative_contacts_isolated__daily.csv,vector,pass,48,12,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__cumulative_contacts_traced__daily.csv,vector,pass,53,15,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__cumulative_suspected_cases__daily.csv,vector,pass,73,12,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__cumulative_suspected_deaths__daily.csv,vector,pass,72,12,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__hosp_escaped__daily.csv,vector,pass,23,6,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__hospitalised__daily.csv,vector,pass,23,6,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__in_bed_previous_day__daily.csv,vector,pass,23,6,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__new_confirmed_cases__daily.csv,vector,pass,75,14,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__new_contacts_isolated__daily.csv,vector,pass,51,12,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__new_contacts_listed__daily.csv,vector,pass,53,15,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__new_hosp_admissions__daily.csv,vector,pass,23,6,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__new_hosp_detainees__daily.csv,vector,pass,23,6,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__new_hosp_other__daily.csv,vector,pass,23,6,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__new_suspected_cases__daily.csv,vector,pass,76,15,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__new_suspected_deaths__daily.csv,vector,pass,76,15,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__total_poe_hand_washing__daily.csv,vector,pass,28,8,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__total_poe_passed__daily.csv,vector,pass,28,8,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__total_poe_refused_hand_washing__daily.csv,vector,pass,28,8,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__total_poe_refused_screening__daily.csv,vector,pass,28,8,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__total_poe_sanitised__daily.csv,vector,pass,28,8,,2026-05-26T09:47:00+00:00
-insp_sitrep,insp_sitrep__total_poe_screened__daily.csv,vector,pass,28,8,,2026-05-26T09:47:00+00:00
-osrm,metadata.yaml,metadata,pass,,,,2026-05-26T09:47:00+00:00
-osrm,osrm__road_distance__static.matrix.csv,matrix,warn,519,519,1036 missing cells (empty/NA) (warn),2026-05-26T09:47:00+00:00
-osrm,osrm__travel_time__static.matrix.csv,matrix,warn,519,519,1036 missing cells (empty/NA) (warn),2026-05-26T09:47:00+00:00
-refugee_sites,metadata.yaml,metadata,pass,,,,2026-05-26T09:47:00+00:00
-refugee_sites,refugee_sites__sites__static.csv,vector,pass,23,23,,2026-05-26T09:47:00+00:00
-worldpop,metadata.yaml,metadata,pass,,,,2026-05-26T09:47:00+00:00
-worldpop,worldpop__pop_count__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-26T09:47:00+00:00
-worldpop,worldpop__pop_density__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-26T09:47:00+00:00
+ACLED_conflict,metadata.yaml,metadata,pass,,,,2026-05-27T14:33:33+00:00
+ACLED_conflict,processed/,structure,warn,,,no processed/ directory,2026-05-27T14:33:33+00:00
+IDP,metadata.yaml,metadata,pass,,,,2026-05-27T14:33:33+00:00
+IDP,idp__individuals__monthly.matrix.csv,matrix,pass,4004,44,,2026-05-27T14:33:33+00:00
+IDP,idp__individuals__static.matrix.csv,matrix,pass,44,44,,2026-05-27T14:33:33+00:00
+IDP,idp__individuals__weekly.matrix.csv,matrix,pass,12584,44,,2026-05-27T14:33:33+00:00
+ccvi,metadata.yaml,metadata,pass,,,,2026-05-27T14:33:33+00:00
+ccvi,ccvi__socioeconomic_deprivation__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-27T14:33:33+00:00
+ccvi,ccvi__socioeconomic_inequality__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-27T14:33:33+00:00
+cross-border-movements,metadata.yaml,metadata,pass,,,,2026-05-27T14:33:33+00:00
+cross-border-movements,cross_border__poe_passengers__static.csv,vector,pass,7,7,,2026-05-27T14:33:33+00:00
+epi,metadata.yaml,metadata,pass,,,,2026-05-27T14:33:33+00:00
+epi,epi__cases__weekly.csv,vector,pass,7,7,,2026-05-27T14:33:33+00:00
+fao_lccs,metadata.yaml,metadata,pass,,,,2026-05-27T14:33:33+00:00
+fao_lccs,fao_lccs__urban_fraction__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-27T14:33:33+00:00
+flowminder,metadata.yaml,metadata,pass,,,,2026-05-27T14:33:33+00:00
+flowminder,flowminder__inflow__static.matrix.csv,matrix,pass,437,437,,2026-05-27T14:33:33+00:00
+flowminder,flowminder__outflow__static.matrix.csv,matrix,pass,437,437,,2026-05-27T14:33:33+00:00
+gdp_pc,metadata.yaml,metadata,pass,,,,2026-05-27T14:33:33+00:00
+gdp_pc,gdp_pc__gdp_pc__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-27T14:33:33+00:00
+grid3_healthsites,metadata.yaml,metadata,pass,,,,2026-05-27T14:33:33+00:00
+grid3_healthsites,grid3_healthsites__healthsite_count__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-27T14:33:33+00:00
+grid3_healthsites,grid3_healthsites__healthsite_density__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-27T14:33:33+00:00
+healthsites_io,metadata.yaml,metadata,pass,,,,2026-05-27T14:33:33+00:00
+healthsites_io,healthsites_io__healthsite_count__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-27T14:33:33+00:00
+healthsites_io,healthsites_io__healthsite_density__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-27T14:33:33+00:00
+insp_sitrep,metadata.yaml,metadata,pass,,,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__contacts_seen__daily.csv,vector,pass,46,10,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__cumulative_confirmed_cases__daily.csv,vector,pass,75,14,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__cumulative_confirmed_deaths__daily.csv,vector,pass,73,12,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__cumulative_contacts_isolated__daily.csv,vector,pass,48,12,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__cumulative_contacts_traced__daily.csv,vector,pass,53,15,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__cumulative_suspected_cases__daily.csv,vector,pass,73,12,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__cumulative_suspected_deaths__daily.csv,vector,pass,72,12,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__hosp_escaped__daily.csv,vector,pass,23,6,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__hospitalised__daily.csv,vector,pass,23,6,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__in_bed_previous_day__daily.csv,vector,pass,23,6,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__national_cumulative_confirmed_cases__daily.csv,vector,pass,519,519,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__national_cumulative_confirmed_deaths__daily.csv,vector,pass,519,519,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__national_cumulative_suspected_cases__daily.csv,vector,pass,519,519,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__national_cumulative_suspected_deaths__daily.csv,vector,pass,519,519,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__new_confirmed_cases__daily.csv,vector,pass,75,14,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__new_contacts_isolated__daily.csv,vector,pass,51,12,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__new_contacts_listed__daily.csv,vector,pass,53,15,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__new_hosp_admissions__daily.csv,vector,pass,23,6,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__new_hosp_detainees__daily.csv,vector,pass,23,6,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__new_hosp_other__daily.csv,vector,pass,23,6,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__new_suspected_cases__daily.csv,vector,pass,76,15,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__new_suspected_deaths__daily.csv,vector,pass,76,15,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__total_poe_hand_washing__daily.csv,vector,pass,28,8,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__total_poe_passed__daily.csv,vector,pass,28,8,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__total_poe_refused_hand_washing__daily.csv,vector,pass,28,8,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__total_poe_refused_screening__daily.csv,vector,pass,28,8,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__total_poe_sanitised__daily.csv,vector,pass,28,8,,2026-05-27T14:33:33+00:00
+insp_sitrep,insp_sitrep__total_poe_screened__daily.csv,vector,pass,28,8,,2026-05-27T14:33:33+00:00
+osrm,metadata.yaml,metadata,pass,,,,2026-05-27T14:33:33+00:00
+osrm,osrm__road_distance__static.matrix.csv,matrix,warn,519,519,1036 missing cells (empty/NA) (warn),2026-05-27T14:33:33+00:00
+osrm,osrm__travel_time__static.matrix.csv,matrix,warn,519,519,1036 missing cells (empty/NA) (warn),2026-05-27T14:33:33+00:00
+refugee_sites,metadata.yaml,metadata,pass,,,,2026-05-27T14:33:33+00:00
+refugee_sites,refugee_sites__sites__static.csv,vector,pass,23,23,,2026-05-27T14:33:33+00:00
+worldpop,metadata.yaml,metadata,pass,,,,2026-05-27T14:33:33+00:00
+worldpop,worldpop__pop_count__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-27T14:33:33+00:00
+worldpop,worldpop__pop_density__static.csv,vector,warn,519,519,1 empty column header(s); likely R write.csv without row.names=FALSE (warn),2026-05-27T14:33:33+00:00

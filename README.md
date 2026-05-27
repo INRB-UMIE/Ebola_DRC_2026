@@ -6,7 +6,7 @@
 
 This work is led by the Institut National de Recherche Biomédicale (INRB) Kinshasa/One Health Institute for Africa (INOHA) Kinshasa (Dav Ebengo, Placide Mbala-Kingebeni and Tania Bishola), and the Institut National de Santé Publique (INSP) (Pierre Akilimali, Adelard Lofungola) in collaboration with partners across the University of Oxford and Northeastern University; please contact [dav.ebengo\@umie-inrb.org](mailto:dav.ebengo@umie-inrb.org) or [pierre.akilimali\@insp.cd](mailto:pierre.akilimali@insp.cd) for further information.
 
-Last successful build: **26 May 2026, 18:18:28 (UTC)** — `build/` on `main` at commit [`39f409e`](https://github.com/INRB-UMIE/Ebola_DRC_2026/commit/39f409e3c1031806e26a465db9ebae8c8ea3e1a8) (data snapshot [`39f409e`](https://github.com/INRB-UMIE/Ebola_DRC_2026/commit/39f409e), see `build/manifest.json`).
+Last successful build: **27 May 2026, 14:33:35 (UTC)** — `build/` on `main` at commit [`059661a`](https://github.com/INRB-UMIE/Ebola_DRC_2026/commit/059661aa16db4dd60774d2ac7a8b53f732e99796) (data snapshot [`059661a`](https://github.com/INRB-UMIE/Ebola_DRC_2026/commit/059661a), see `build/manifest.json`).
 
 # Data sources
 
@@ -28,14 +28,12 @@ For the latest BDBV genomic data, please visit [Pathoplexus](https://pathoplexus
 
 We are tracking pending data sources over on the [issues tab](https://github.com/kraemer-lab/Ebola_DRC_2026/issues). If you want to request a specific publicly available dataset, raise an issue (although raising an issue does not guarantee that we will incorporate a dataset).
 
-# Current build (2026-05-26)
+# Current build (2026-05-27)
 
 The current build is committed on `main` and refreshed automatically by CI on every merge that touches `data/**` — see [Release internals](#release-internals). Run `python -m tools.build_geojson` locally only if you're working on a branch with un-merged data changes.
 
 <!-- whats-new:start -->
-
-INSP Sitrep data through report 010
-
+- Updated INSP Sitrep data with the new version of Sitrep 12 (Updated national suspected deaths)
 <!-- whats-new:end -->
 
 **Embedded in the GeoJSON** — each per-zone vector output appears under `feature.properties.<dataset>.<metric>` (matrices are excluded; see below). Daily series use the latest `date` per zone in the build snapshot:
@@ -89,13 +87,13 @@ INSP Sitrep data through report 010
 ## Past releases
 
 <!-- past-releases:start -->
-
 | Tag | Date | Summary | Download |
-|-----------------|-----------------|------------------|---------------------|
+|-----|------|---------|----------|
+| [`build-2026-05-27-059661a`](https://github.com/INRB-UMIE/Ebola_DRC_2026/releases/tag/build-2026-05-27-059661a) | 2026-05-27 | - Updated INSP Sitrep data with the new version of Sitrep 12 (Updated national suspected deaths) | [release](https://github.com/INRB-UMIE/Ebola_DRC_2026/releases/tag/build-2026-05-27-059661a) |
+| [`build-2026-05-27-af1f2b5`](https://github.com/INRB-UMIE/Ebola_DRC_2026/releases/tag/build-2026-05-27-af1f2b5) | 2026-05-27 | - Added the updated DRC totals from SitRep 12 to a new metric for that dataset with prefix national_* | [release](https://github.com/INRB-UMIE/Ebola_DRC_2026/releases/tag/build-2026-05-27-af1f2b5) |
 | build-2026-05-26-683a564 | 2026-05-26 | INSP Sitrep data through report 010 | [release](https://github.com/INRB-UMIE/Ebola_DRC_2026/releases/tag/build-2026-05-26-683a564) |
 | [`build-2026-05-22-12db0c2`](https://github.com/kraemer-lab/Ebola_DRC_2026/releases/tag/build-2026-05-22-12db0c2) | 2026-05-22 | 25 vector layers; INSP through SitRep 007 + GRID3 health facilities | [release](https://github.com/kraemer-lab/Ebola_DRC_2026/releases/tag/build-2026-05-22-12db0c2) |
 | [`build-2026-05-22-9694d10`](https://github.com/kraemer-lab/Ebola_DRC_2026/releases/tag/build-2026-05-22-9694d10) | 2026-05-22 | First GitHub release (11 vector layers; pre-INSP / pre-GRID3) | [release](https://github.com/kraemer-lab/Ebola_DRC_2026/releases/tag/build-2026-05-22-9694d10) |
-
 <!-- past-releases:end -->
 
 # Repository layout
@@ -190,11 +188,23 @@ Escape hatches:
 
 -   **Suppress release for a trivial change** (e.g. typo fix in a metadata file): include `[skip release]` in the merge commit message. CI will skip the release step.
 -   **Force a release without a data change** (e.g. after fixing `tools/build_geojson.py`): go to the Actions tab → "Release on data merge" → "Run workflow", and supply a description via the manual input.
--   **Emergency local release** (CI is down): pull `main`, ensure `build/` is current (`python -m tools.build_geojson`), then run `python -m tools.release` interactively. Commit + push `build/`, `qa/`, `README.md` manually.
+-   **Emergency local release** (CI is down): pull `main`, then run the same sequence the CI workflow runs:
+
+    ```
+    .venv/bin/python -m tools.qa
+    .venv/bin/python -m tools.build_geojson
+    .venv/bin/python -m tools.release                   # interactive; packs dist/<tag>.tar.gz + updates README
+    git add build/ qa/qa_log.csv qa/matrix_log.csv qa/reports/ README.md
+    git commit -m "New build YYYY-MM-DD"
+    git push
+    .venv/bin/python -m tools.publish                   # creates the GitHub Release pointing at HEAD
+    ```
+
+    The publish step is separate from the pack step so the GitHub Release tag points at the commit that contains the build artifacts (the push above), not the pre-build merge commit.
 
 Maintainers who will cut emergency local releases also need:
 
--   `gh` CLI installed and authenticated (`gh auth login`).
+-   `gh` CLI installed and authenticated (`gh auth login`) — required by `tools.publish`, not by `tools.release`.
 -   `$EDITOR` set (used by `tools.release` for the interactive description prompt).
 
 # Release internals
@@ -207,8 +217,9 @@ What it does, in order:
 2.  Extracts the `## What's new` section from the merge commit's PR body (via `gh api`).
 3.  Runs `python -m tools.qa`.
 4.  Runs `python -m tools.build_geojson`.
-5.  Runs `python -m tools.release --description-file <tmp> --non-interactive`, which packs `build/` as a `dist/<tag>.tar.gz` archive, publishes a GitHub Release tagged `build-YYYY-MM-DD-<sha>`, and updates the README.
+5.  Runs `python -m tools.release --description-file <tmp> --non-interactive`, which packs `build/` as `dist/<tag>.tar.gz`, persists the description as `dist/<tag>.description.md`, and updates the README. This step does NOT publish anything.
 6.  Commits and pushes the resulting `build/`, `qa/`, and `README.md` back to `main` with `[skip release][skip ci]` in the commit message to prevent recursive triggering.
+7.  Runs `python -m tools.publish`, which calls `gh release create <tag> dist/<tag>.tar.gz --target $(git rev-parse HEAD) ...`. Because this runs *after* the commit-back, the release tag points at the commit that contains the build artifacts in its tree — not at the pre-build merge commit. The release URL is determined by `<tag>` and matches what `tools.release` wrote into the README in step 5.
 
 The pre-existing `qa.yml` workflow runs `pytest` + `tools.qa` on PRs as the merge gate; it does not trigger on `build/`, `qa/`, or `README.md` changes, so the release workflow's commit-back does not retrigger it.
 

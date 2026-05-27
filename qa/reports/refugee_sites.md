@@ -1,6 +1,6 @@
 # QA report: refugee_sites
 
-_Checked: 2026-05-26T09:47:00+00:00_
+_Checked: 2026-05-27T14:33:33+00:00_
 
 **Status counts:** {'pass': 2}
 

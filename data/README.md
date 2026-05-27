@@ -28,7 +28,7 @@ Every dataset folder follows the same layout:
 |--------|------|------------------|-------|
 | [`shapefiles/`](shapefiles/) | geometry | (base layer) | Source of truth for boundaries and `Nom` |
 | [`epi/`](epi/) | vector | yes | WHO weekly external sitrep |
-| [`insp_sitrep/`](insp_sitrep/) | vector (daily) | yes | INSP SitRep MVE; outbreak zones only |
+| [`insp_sitrep/`](insp_sitrep/) | vector (daily) | yes | INSP SitRep MVE 001–012 (003 missing); 28 metrics; zone + national totals |
 | [`cross-border-movements/`](cross-border-movements/) | vector | yes | Imperial College POE passenger estimates |
 | [`worldpop/`](worldpop/) | vector | yes | GRID3/Kummu-style population count & density |
 | [`gdp_pc/`](gdp_pc/) | vector | yes | GDP per capita (PPP) |
