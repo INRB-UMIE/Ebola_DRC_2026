@@ -30,7 +30,7 @@ We are tracking pending data sources over on the [issues tab](https://github.com
 
 # Current build (2026-05-26)
 
-The current build is committed on `main` and refreshed automatically by CI on every merge that touches `data/**` — see [Release internals](#release-internals). `build/manifest.json` carries the same information in machine-readable form. Run `python -m tools.build_geojson` locally only if you're working on a branch with un-merged data changes.
+The current build is committed on `main` and refreshed automatically by CI on every merge that touches `data/**` — see [Release internals](#release-internals). Run `python -m tools.build_geojson` locally only if you're working on a branch with un-merged data changes.
 
 <!-- whats-new:start -->
 
@@ -67,6 +67,8 @@ INSP Sitrep data through report 010
 | refugee_sites | `refugee_sites__sites__static.csv` | 2026-05-20 | active |
 | worldpop | `worldpop__pop_count__static.csv` | 2026-05-20 | active |
 | worldpop | `worldpop__pop_density__static.csv` | 2026-05-20 | active |
+
+`build/manifest.json` carries the same information in machine-readable form. 
 
 **Matrix outputs** — large origin–destination tables (519×519 for national sources). Not merged into `build/drc_health_zones.geojson`; use the files under `data/<dataset>/processed/` or the catalogue in `qa/matrix_log.csv`.
 
