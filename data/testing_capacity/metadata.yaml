@@ -1,0 +1,16 @@
+source: "Africa CDC — Plan de décentralisation des tests Ebola, RDC"
+citation: "Africa Centres for Disease Control and Prevention (Africa CDC). Plan de décentralisation des tests de laboratoire Ebola en République démocratique du Congo."
+source_url: "https://africacdc.org/"
+retrieved_on: "2026-05-26"
+license: "Use with attribution to Africa CDC and INRB/INSP as specified in the source plan; confirm redistribution terms with the data owner."
+contact: "info@africacdc.org"
+runtime: none
+notes: |
+  Raw workbook: raw/Plan_Decentralisation_Ebola_RDC.xlsx (decentralised PCR capacity by
+  health zone). Processed snapshot: africa_cdc__testing_capacity__static_matrix.csv
+  (wide table with PCR_machines and PCR_tests per zone). Contract outputs for QA and
+  GeoJSON build:
+    - testing_capacity__pcr_machines__static.csv
+    - testing_capacity__pcr_tests__static.csv
+  Zone names are matched to canonical Nom via data/aliases.csv (e.g. Mungwalu → Mongbalu).
+  Coverage: outbreak-affected zones listed in the decentralisation plan (partial national).
