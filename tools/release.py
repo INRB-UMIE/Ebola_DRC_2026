@@ -1,11 +1,17 @@
-"""`python -m tools.release` — package the current build/ as a GitHub Release
-and update README.
+"""`python -m tools.release` — pack the current build/ as a release archive and
+update README.
 
 In the new flow:
 - The release workflow runs `tools.build_geojson` immediately before invoking
   this script, so `build/` already reflects the data on `main`.
-- This script does NOT rebuild and does NOT archive a "previous" build — it
-  publishes whatever is currently in build/ as a new release.
+- This script does NOT rebuild and does NOT publish a GitHub Release. It only
+  packs `dist/<tag>.tar.gz`, writes the description to `dist/<tag>.description.md`,
+  and updates README with the (deterministic) release URL.
+- After this script runs, the caller commits + pushes the build/qa/README
+  changes, then publishes the release via `python -m tools.publish` (or `gh
+  release create ... --target <sha>` directly). Splitting the publish from the
+  pack lets the release tag point to the commit that contains the build
+  artifacts, not the pre-build merge commit.
 - Use `--description-file <path>` to provide the release notes non-interactively
   (CI mode). Otherwise the script opens $EDITOR.
 
@@ -22,13 +28,13 @@ import argparse
 import csv
 import json
 import os
-import shutil
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
 
 from tools.lib.release import (
+    DEFAULT_GITHUB_REPO,
     build_tag,
     format_last_build_line,
     pack_archive,
@@ -72,18 +78,14 @@ def _preflight(description_file: str | None = None) -> int:
                     "`python -m tools.qa` before releasing."
                 )
                 return 2
-    if shutil.which("gh") is None:
-        _eprint("gh CLI not found. Install from https://cli.github.com/ and run `gh auth login`.")
-        return 2
     dirty = _git_dirty_paths()
-    # Build effective allowlist: static prefixes plus the description file (if given).
     allowlist = ALLOWLIST_PREFIXES
     if description_file:
         try:
             rel = str(Path(description_file).resolve().relative_to(REPO_ROOT.resolve()))
             allowlist = ALLOWLIST_PREFIXES + (rel,)
         except ValueError:
-            pass  # description file outside repo root — not in dirty list anyway
+            pass
     unrelated = [p for p in dirty if not any(p.startswith(pre) for pre in allowlist)]
     if unrelated:
         _eprint(
@@ -139,8 +141,17 @@ def _resolve_description(args: argparse.Namespace) -> str:
     return body
 
 
-def _publish_current_build(description: str) -> tuple[str, str]:
-    """Pack build/ and create a GitHub Release. Returns (tag, release_url)."""
+def release_url(tag: str, github_repo: str = DEFAULT_GITHUB_REPO) -> str:
+    return f"https://github.com/{github_repo}/releases/tag/{tag}"
+
+
+def _pack_archive(description: str) -> tuple[str, str]:
+    """Pack build/ to dist/<tag>.tar.gz and persist the description alongside it.
+
+    Returns (tag, url). The URL is the deterministic GitHub Release URL — the
+    release itself is published later by `tools.publish` once the build commit
+    has been pushed.
+    """
     manifest = json.loads(MANIFEST.read_text())
     tag = build_tag(manifest["built_at"], manifest["commit"])
 
@@ -154,30 +165,12 @@ def _publish_current_build(description: str) -> tuple[str, str]:
     ]
     pack_archive(members, out_path)
 
-    notes_file: Path
-    with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False, encoding="utf-8") as f:
-        f.write(description)
-        notes_file = Path(f.name)
-    try:
-        create = subprocess.run(
-            [
-                "gh", "release", "create", tag,
-                str(out_path),
-                "--title", tag,
-                "--notes-file", str(notes_file),
-            ],
-            capture_output=True,
-            text=True,
-            cwd=str(REPO_ROOT),
-        )
-    finally:
-        notes_file.unlink(missing_ok=True)
-    if create.returncode != 0:
-        _eprint(f"`gh release create` failed:\n{create.stderr}")
-        sys.exit(2)
-    url_lines = [ln for ln in create.stdout.strip().splitlines() if ln.strip()]
-    url = url_lines[-1] if url_lines else ""
-    _eprint(f"✓ Published {tag} → {url}")
+    description_path = DIST_DIR / f"{tag}.description.md"
+    description_path.write_text(description, encoding="utf-8")
+
+    url = release_url(tag)
+    _eprint(f"✓ Packed {out_path}")
+    _eprint(f"✓ Wrote {description_path}")
     return tag, url
 
 
@@ -239,7 +232,7 @@ def main() -> int:
         return rc
 
     description = _resolve_description(args)
-    tag, url = _publish_current_build(description)
+    tag, url = _pack_archive(description)
     _update_readme(tag, url, description)
 
     _eprint("")
@@ -247,6 +240,7 @@ def main() -> int:
     _eprint("  git add build/ qa/qa_log.csv qa/matrix_log.csv qa/reports/ README.md")
     _eprint("  git commit -m \"New build YYYY-MM-DD\"")
     _eprint("  git push")
+    _eprint("  python -m tools.publish   # creates the GitHub Release pointing at the build commit")
     return 0
 
 

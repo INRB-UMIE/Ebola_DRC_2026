@@ -1,8 +1,8 @@
 """Integration tests for the tools.release orchestrator (new flow).
 
-Stubs `gh` (PATH manipulation) and `$EDITOR` (env var). The orchestrator no
-longer rebuilds — the workflow does that before calling tools.release — so
-tests do not fake tools.build_geojson.
+Stubs `$EDITOR` (env var). The orchestrator no longer rebuilds and no longer
+publishes — it packs `dist/<tag>.tar.gz`, persists the description alongside,
+and updates README. Publication is `tools.publish`'s job (tested separately).
 """
 
 import json
@@ -71,23 +71,12 @@ def _init_git(tmp: Path) -> None:
     )
 
 
-def _install_stubs(tmp: Path, *, editor_body: str = "", gh_body: str | None = None) -> tuple[Path, Path]:
+def _install_stubs(tmp: Path, *, editor_body: str = "") -> Path:
     bin_dir = tmp / "bin"
     bin_dir.mkdir()
-    gh_log = tmp / "gh.log"
-    default_gh = (
-        f"""#!/usr/bin/env bash
-echo "$@" >> {gh_log}
-if [ "$1" = "release" ] && [ "$2" = "create" ]; then
-  echo "https://github.com/example/repo/releases/tag/$3"
-fi
-exit 0
-"""
-    )
-    _make_stub(bin_dir / "gh", gh_body or default_gh)
     if editor_body:
         _make_stub(bin_dir / "fake-editor", editor_body)
-    return bin_dir, gh_log
+    return bin_dir
 
 
 def _env(tmp: Path, bin_dir: Path, *, editor: Path | None = None) -> dict:
@@ -116,7 +105,7 @@ def _run(tmp: Path, env: dict, *extra_args: str) -> subprocess.CompletedProcess:
 def test_preflight_fails_when_qa_log_missing(tmp_path):
     _seed_repo(tmp_path)
     (tmp_path / "qa" / "qa_log.csv").unlink()
-    bin_dir, _ = _install_stubs(tmp_path)
+    bin_dir = _install_stubs(tmp_path)
     result = _run(tmp_path, _env(tmp_path, bin_dir))
     assert result.returncode != 0
     assert "qa" in result.stderr.lower()
@@ -127,29 +116,16 @@ def test_preflight_fails_when_qa_log_has_failures(tmp_path):
     (tmp_path / "qa" / "qa_log.csv").write_text(
         "dataset,type,file,status\nfoo,vector,foo.csv,fail\n"
     )
-    bin_dir, _ = _install_stubs(tmp_path)
+    bin_dir = _install_stubs(tmp_path)
     result = _run(tmp_path, _env(tmp_path, bin_dir))
     assert result.returncode != 0
     assert "fail" in result.stderr.lower()
 
 
-def test_preflight_fails_when_gh_missing(tmp_path):
-    _seed_repo(tmp_path)
-    result = subprocess.run(
-        [sys.executable, "-m", "tools.release"],
-        cwd=tmp_path,
-        capture_output=True,
-        text=True,
-        env={"PATH": "/nonexistent-bin", "PYTHONPATH": str(REPO_ROOT), "HOME": str(tmp_path)},
-    )
-    assert result.returncode != 0
-    assert "gh" in result.stderr.lower()
-
-
 def test_preflight_fails_on_unrelated_dirty_paths(tmp_path):
     _seed_repo(tmp_path)
     _init_git(tmp_path)
-    bin_dir, _ = _install_stubs(tmp_path)
+    bin_dir = _install_stubs(tmp_path)
     (tmp_path / "unrelated.txt").write_text("dirty")
     result = _run(tmp_path, _env(tmp_path, bin_dir))
     assert result.returncode != 0
@@ -159,7 +135,7 @@ def test_preflight_fails_on_unrelated_dirty_paths(tmp_path):
 # ---------- happy paths ----------
 
 def test_interactive_editor_release(tmp_path):
-    """$EDITOR mode (no flags): full pass publishes current build."""
+    """$EDITOR mode: packs archive, persists description, updates README. Does NOT publish."""
     _seed_repo(tmp_path)
     _init_git(tmp_path)
     editor_body = (
@@ -169,7 +145,7 @@ def test_interactive_editor_release(tmp_path):
         "Updated cross-border POE counts.\n"
         "EOF\n"
     )
-    bin_dir, gh_log = _install_stubs(tmp_path, editor_body=editor_body)
+    bin_dir = _install_stubs(tmp_path, editor_body=editor_body)
     result = _run(tmp_path, _env(tmp_path, bin_dir, editor=bin_dir / "fake-editor"))
     assert result.returncode == 0, result.stderr
 
@@ -182,12 +158,14 @@ def test_interactive_editor_release(tmp_path):
     assert "build/manifest.json" in names
     assert "qa/qa_log.csv" in names
 
-    gh_invocations = gh_log.read_text()
-    assert f"release create {expected_tag}" in gh_invocations
+    description_path = tmp_path / "dist" / f"{expected_tag}.description.md"
+    assert description_path.exists()
+    assert "Updated cross-border POE counts." in description_path.read_text()
 
     readme = (tmp_path / "README.md").read_text()
     assert expected_tag in readme
     assert "Updated cross-border POE counts." in readme
+    assert f"https://github.com/INRB-UMIE/Ebola_DRC_2026/releases/tag/{expected_tag}" in readme
 
     assert not (tmp_path / "build" / "DESCRIPTION.md").exists()
 
@@ -196,7 +174,7 @@ def test_description_file_release(tmp_path):
     """--description-file path: read description from a file, do not open $EDITOR."""
     _seed_repo(tmp_path)
     _init_git(tmp_path)
-    bin_dir, gh_log = _install_stubs(tmp_path)
+    bin_dir = _install_stubs(tmp_path)
     desc = tmp_path / "desc.md"
     desc.write_text("Refreshed Flowminder month.\n")
     result = _run(
@@ -208,12 +186,14 @@ def test_description_file_release(tmp_path):
     readme = (tmp_path / "README.md").read_text()
     assert "Refreshed Flowminder month." in readme
     assert "build-2026-05-22-newsha1" in readme
+    description_path = tmp_path / "dist" / "build-2026-05-22-newsha1.description.md"
+    assert description_path.exists()
 
 
 def test_non_interactive_without_description_file_fails(tmp_path):
     _seed_repo(tmp_path)
     _init_git(tmp_path)
-    bin_dir, _ = _install_stubs(tmp_path)
+    bin_dir = _install_stubs(tmp_path)
     result = _run(tmp_path, _env(tmp_path, bin_dir), "--non-interactive")
     assert result.returncode != 0
     assert "description-file" in result.stderr.lower() or "non-interactive" in result.stderr.lower()
@@ -222,7 +202,7 @@ def test_non_interactive_without_description_file_fails(tmp_path):
 def test_description_file_empty_fails(tmp_path):
     _seed_repo(tmp_path)
     _init_git(tmp_path)
-    bin_dir, _ = _install_stubs(tmp_path)
+    bin_dir = _install_stubs(tmp_path)
     desc = tmp_path / "desc.md"
     desc.write_text("   \n\n")
     result = _run(

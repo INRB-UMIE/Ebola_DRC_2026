@@ -188,11 +188,23 @@ Escape hatches:
 
 -   **Suppress release for a trivial change** (e.g. typo fix in a metadata file): include `[skip release]` in the merge commit message. CI will skip the release step.
 -   **Force a release without a data change** (e.g. after fixing `tools/build_geojson.py`): go to the Actions tab → "Release on data merge" → "Run workflow", and supply a description via the manual input.
--   **Emergency local release** (CI is down): pull `main`, ensure `build/` is current (`python -m tools.build_geojson`), then run `python -m tools.release` interactively. Commit + push `build/`, `qa/`, `README.md` manually.
+-   **Emergency local release** (CI is down): pull `main`, then run the same sequence the CI workflow runs:
+
+    ```
+    .venv/bin/python -m tools.qa
+    .venv/bin/python -m tools.build_geojson
+    .venv/bin/python -m tools.release                   # interactive; packs dist/<tag>.tar.gz + updates README
+    git add build/ qa/qa_log.csv qa/matrix_log.csv qa/reports/ README.md
+    git commit -m "New build YYYY-MM-DD"
+    git push
+    .venv/bin/python -m tools.publish                   # creates the GitHub Release pointing at HEAD
+    ```
+
+    The publish step is separate from the pack step so the GitHub Release tag points at the commit that contains the build artifacts (the push above), not the pre-build merge commit.
 
 Maintainers who will cut emergency local releases also need:
 
--   `gh` CLI installed and authenticated (`gh auth login`).
+-   `gh` CLI installed and authenticated (`gh auth login`) — required by `tools.publish`, not by `tools.release`.
 -   `$EDITOR` set (used by `tools.release` for the interactive description prompt).
 
 # Release internals
@@ -205,8 +217,9 @@ What it does, in order:
 2.  Extracts the `## What's new` section from the merge commit's PR body (via `gh api`).
 3.  Runs `python -m tools.qa`.
 4.  Runs `python -m tools.build_geojson`.
-5.  Runs `python -m tools.release --description-file <tmp> --non-interactive`, which packs `build/` as a `dist/<tag>.tar.gz` archive, publishes a GitHub Release tagged `build-YYYY-MM-DD-<sha>`, and updates the README.
+5.  Runs `python -m tools.release --description-file <tmp> --non-interactive`, which packs `build/` as `dist/<tag>.tar.gz`, persists the description as `dist/<tag>.description.md`, and updates the README. This step does NOT publish anything.
 6.  Commits and pushes the resulting `build/`, `qa/`, and `README.md` back to `main` with `[skip release][skip ci]` in the commit message to prevent recursive triggering.
+7.  Runs `python -m tools.publish`, which calls `gh release create <tag> dist/<tag>.tar.gz --target $(git rev-parse HEAD) ...`. Because this runs *after* the commit-back, the release tag points at the commit that contains the build artifacts in its tree — not at the pre-build merge commit. The release URL is determined by `<tag>` and matches what `tools.release` wrote into the README in step 5.
 
 The pre-existing `qa.yml` workflow runs `pytest` + `tools.qa` on PRs as the merge gate; it does not trigger on `build/`, `qa/`, or `README.md` changes, so the release workflow's commit-back does not retrigger it.
 

@@ -87,10 +87,8 @@ jobs:
         if: steps.skip.outputs.skip != 'true'
         run: python -m tools.build_geojson
 
-      - name: Publish release
+      - name: Pack archive and update README
         if: steps.skip.outputs.skip != 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python -m tools.release \
             --description-file /tmp/desc.md \
@@ -116,3 +114,10 @@ jobs:
           )
           git commit -m "CI: release ${tag} [skip release][skip ci]"
           git push origin HEAD:main
+
+      - name: Publish GitHub Release
+        if: steps.skip.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -m tools.publish
