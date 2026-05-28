@@ -121,3 +121,21 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python -m tools.publish
+
+      - name: Trigger dashboard rebuild
+        if: steps.skip.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.DASHBOARD_DISPATCH_TOKEN }}
+          DASHBOARD_REPO: INRB-UMIE/EBOV2026_Epidemic_Dashboard
+        run: |
+          set -euo pipefail
+          if [ -z "${GH_TOKEN}" ]; then
+            echo "::warning::DASHBOARD_DISPATCH_TOKEN not set; skipping dashboard dispatch."
+            exit 0
+          fi
+          jq -n \
+            --arg data_ref "${{ github.sha }}" \
+            --arg sha "${{ github.sha }}" \
+            --arg dashboard_branch "main" \
+            '{event_type: "data-updated", client_payload: {data_ref: $data_ref, sha: $sha, dashboard_branch: $dashboard_branch}}' \
+            | gh api --method POST "repos/${DASHBOARD_REPO}/dispatches" --input -

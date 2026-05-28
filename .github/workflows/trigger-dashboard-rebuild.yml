@@ -1,0 +1,53 @@
+# Notify the epidemic dashboard repo to rebuild after data/build updates.
+# For production, release.yml also dispatches after a successful data release on main.
+
+name: Trigger dashboard rebuild
+
+on:
+  workflow_dispatch:
+    inputs:
+      dashboard_branch:
+        description: "Dashboard repo branch to rebuild"
+        required: false
+        default: "automate_dashboard_deployment"
+      data_ref:
+        description: "Data repo ref passed to the dashboard build (default: this ref)"
+        required: false
+  push:
+    branches:
+      - main
+      - automate_dashboard_deployment
+    paths:
+      - "build/**"
+      - "data/**"
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger dashboard workflow
+        env:
+          GH_TOKEN: ${{ secrets.DASHBOARD_DISPATCH_TOKEN }}
+          DASHBOARD_REPO: INRB-UMIE/EBOV2026_Epidemic_Dashboard
+        run: |
+          set -euo pipefail
+          if [ -z "${GH_TOKEN}" ]; then
+            echo "::warning::DASHBOARD_DISPATCH_TOKEN is not set. Add a PAT with contents:write on the dashboard repo."
+            exit 0
+          fi
+          BRANCH="${{ github.event.inputs.dashboard_branch }}"
+          if [ -z "${BRANCH}" ]; then
+            BRANCH="automate_dashboard_deployment"
+          fi
+          DATA_REF="${{ github.event.inputs.data_ref }}"
+          if [ -z "${DATA_REF}" ]; then
+            DATA_REF="${{ github.ref_name }}"
+          fi
+          echo "Dispatching data-updated to ${DASHBOARD_REPO}"
+          echo "  dashboard_branch=${BRANCH}  data_ref=${DATA_REF}"
+          jq -n \
+            --arg data_ref "${DATA_REF}" \
+            --arg sha "${{ github.sha }}" \
+            --arg dashboard_branch "${BRANCH}" \
+            '{event_type: "data-updated", client_payload: {data_ref: $data_ref, sha: $sha, dashboard_branch: $dashboard_branch}}' \
+            | gh api --method POST "repos/${DASHBOARD_REPO}/dispatches" --input -
