@@ -168,6 +168,8 @@ def qa_vector(dataset: str, path: Path, parsed) -> FileResult:
     canonical_seen: set[str] = set()
     keys: list = []
     width_mismatches = 0
+    checked_dates: set[str] = set()
+    bad_dates: set[str] = set()
     for ri, r in enumerate(rows, start=2):
         if len(r) != len(header):
             width_mismatches += 1
@@ -178,6 +180,19 @@ def qa_vector(dataset: str, path: Path, parsed) -> FileResult:
         else:
             canonical_seen.add(canonical)
         keys.append((r[nom_i], r[date_i]) if date_i is not None else r[nom_i])
+        if date_i is not None:
+            date_value = r[date_i]
+            if date_value not in checked_dates:
+                checked_dates.add(date_value)
+                if date_col == "year":
+                    if len(date_value) != 4 or not date_value.isdecimal():
+                        bad_dates.add(date_value)
+                else:
+                    try:
+                        if dt.date.fromisoformat(date_value).isoformat() != date_value:
+                            bad_dates.add(date_value)
+                    except ValueError:
+                        bad_dates.add(date_value)
     if width_mismatches:
         reasons.append(f"{width_mismatches} rows with width mismatch (expected {len(header)} fields)")
 
@@ -188,6 +203,11 @@ def qa_vector(dataset: str, path: Path, parsed) -> FileResult:
     dup = [k for k, c in Counter(keys).items() if c > 1]
     if dup:
         reasons.append(f"{len(dup)} duplicate keys (sample: {dup[:3]})")
+    if bad_dates:
+        reasons.append(
+            f"{len(bad_dates)} non-ISO {date_col} values "
+            f"(sample: {sorted(bad_dates)[:5]})"
+        )
 
     fatal = [r for r in reasons if not r.endswith("(warn)")]
     status = "fail" if fatal else ("warn" if reasons else "pass")
