@@ -1,0 +1,16 @@
+source: "INRB MVE app line-list export (test extract)"
+citation: "Institut National de Recherche Biomedicale (INRB), MVE surveillance app line-list export shared for Ebola DRC 2026 analytics."
+source_url: "internal://inrb-mve-app-export"
+retrieved_on: "2026-05-28"
+license: "Internal operational data; redistribution subject to INRB approval."
+contact: "inrb-surveillance@inrb.cd"
+runtime: python
+notes: |
+  Raw files:
+    - raw/mve_inrb_app_test_line_list.csv
+    - raw/mve_inrb_app_schema_column_names.csv
+  process.py renames raw French headers using the schema column_name_en mapping,
+  resolves health zones to canonical nom values (direct alias/canonical match or
+  point-in-polygon fallback using latitude/longitude), and writes:
+    - processed/epi_mve_inrb_app__recorded_cases__daily.csv
+  Output columns are nom, date, recorded_cases grouped by (nom, date_of_notification).

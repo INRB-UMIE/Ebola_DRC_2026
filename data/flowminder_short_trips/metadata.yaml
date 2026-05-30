@@ -1,0 +1,20 @@
+source: "Flowminder Foundation — DRC Ebola Bundibugyo short-trip cohort (May 2026)"
+citation: "Flowminder Foundation (2026). Population movements from Bunia, Mongbwalu and Rwampara — Annex A ranked destination proportions. Report: Population_movements_Ebola_28_May_2026_Flowminder_Final.pdf."
+source_url: "https://www.flowminder.org/resources/publications-reports/drc-reports-publications"
+retrieved_on: "2026-05-28"
+license: "Flowminder reports are publicly released; cite the source organisation."
+contact: "rdc@flowminder.org"
+runtime: python
+period: "2026-04-30..2026-05-24"
+notes: |
+  Annex A (PDF pages 8–11): proportion of Vodacom subscribers seen in Bunia, Mongbwalu,
+  or Rwampara during 3–23 April who were later observed in each destination health zone
+  at D+7, D+14, D+21, D+28, D+31 (30 Apr, 7 May, 14 May, 21 May, 24 May 2026).
+
+  Pipeline:
+    1. extract_pdf_annex.py → raw/short_trips_destination_rankings.csv
+    2. process.py → five processed/*.matrix.csv snapshots (3×N each)
+
+  Processed matrices use canonical destination `nom` column headers. Origin rows are
+  Bunia, Mongbalu, Rwampara with identical destination proportions per snapshot
+  (combined cohort). Zone labels follow data/flowminder/process.py resolution rules.
