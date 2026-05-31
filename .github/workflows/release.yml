@@ -26,7 +26,7 @@ jobs:
       - name: Check [skip release] marker
         id: skip
         run: |
-          msg=$(git log -1 --pretty=%B "${{ github.sha }}" 2>/dev/null || echo "")
+          msg="${{ github.event.head_commit.message }}"
           if echo "$msg" | grep -qF "[skip release]"; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
             echo "Commit message contains [skip release]; exiting."
